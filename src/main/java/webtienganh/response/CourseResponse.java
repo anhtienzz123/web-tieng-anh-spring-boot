@@ -1,4 +1,4 @@
-package webtienganh.request;
+package webtienganh.response;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import webtienganh.dto.WordDTO;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseRequest extends CourseInfoRequest {
+public class CourseResponse extends CourseInfoResponse {
 
 	private List<WordDTO> words;
 }

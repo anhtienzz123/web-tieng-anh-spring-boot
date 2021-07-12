@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable()
 				.authorizeRequests()
 				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
 				.anyRequest().permitAll();
 
 		// Thêm một lớp Filter kiểm tra jwt

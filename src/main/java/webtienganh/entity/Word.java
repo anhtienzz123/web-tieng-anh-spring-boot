@@ -20,12 +20,17 @@ public class Word {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String name;
 	private String mean;
 	private String type;
 	private String pronounce;
 	private String sound;
 	private String definition;
-	
+
+	public Word(Integer id) {
+		super();
+		this.id = id;
+	}
+
 }

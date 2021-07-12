@@ -1,8 +1,10 @@
 package webtienganh.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -27,16 +29,28 @@ public class WordNoteCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String name;
-	private String slug;
 	private LocalDate createDate;
-	
-	@OneToMany(mappedBy = "wordNoteCategory")
-	private List<WordNote> words;
-	
+
+	@OneToMany(mappedBy = "wordNoteCategory", cascade = CascadeType.REMOVE)
+	private List<WordNote> words = new ArrayList<WordNote>();
+
 	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name="fk_wordnotecategory_user"))
+	@JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_wordnotecategory_user"))
 	private User user;
+
+	public WordNoteCategory(Integer id) {
+		super();
+		this.id = id;
+	}
 	
+	public WordNoteCategory(String name, LocalDate createDate, User user) {
+		super();
+		this.name = name;
+		this.createDate = createDate;
+		this.user = user;
+		
+	}
+
 }

@@ -49,5 +49,15 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		return result;
 
 	}
+	
+	@ExceptionHandler(value = { AuthenticationException.class })
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	protected ErrorResponse handleAuthenticationException(AuthenticationException ex) {
+
+		ErrorResponse result = ErrorResponse.builder().status(400).error("Không có quyền vào tài nguyên").build();
+
+		return result;
+
+	}
 
 }

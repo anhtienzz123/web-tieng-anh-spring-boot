@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import webtienganh.dto.WordDTO;
 import webtienganh.entity.Course;
-import webtienganh.request.CourseInfoRequest;
-import webtienganh.request.CourseRequest;
+import webtienganh.response.CourseInfoResponse;
+import webtienganh.response.CourseResponse;
 
 @Component
 public class CourseConverter {
@@ -17,9 +17,9 @@ public class CourseConverter {
 	@Autowired
 	private WordConverter wordConverter;
 
-	public CourseInfoRequest toCourseInfoRequest(Course course) {
+	public CourseInfoResponse toCourseInfoRequest(Course course) {
 
-		CourseInfoRequest result = new CourseInfoRequest();
+		CourseInfoResponse result = new CourseInfoResponse();
 		result.setName(course.getName());
 		result.setSlug(course.getSlug());
 		result.setImage(course.getImage());
@@ -30,9 +30,9 @@ public class CourseConverter {
 		return result;
 	}
 
-	public CourseRequest toCourseRequest(Course course) {
+	public CourseResponse toCourseRequest(Course course) {
 
-		CourseRequest result = new CourseRequest();
+		CourseResponse result = new CourseResponse();
 		result.setName(course.getName());
 		result.setSlug(course.getSlug());
 		result.setImage(course.getImage());
