@@ -4,6 +4,7 @@ public class MyExceptionHelper {
 
 	private static IllegalArgumentException illegalArgumentException;
 	private static ResourceNotFoundException resourceNotFoundException;
+	private static AuthenticationException authenticationException;
 
 	public static IllegalArgumentException throwIllegalArgumentException() {
 
@@ -22,5 +23,12 @@ public class MyExceptionHelper {
 		return resourceNotFoundException;
 	}
 
-	
+	public static AuthenticationException throwAuthenticationException() {
+
+		if (authenticationException == null)
+			authenticationException = new AuthenticationException("Not Authentication");
+
+		return authenticationException;
+	}
+
 }
