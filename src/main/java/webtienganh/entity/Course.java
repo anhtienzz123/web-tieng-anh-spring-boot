@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -29,6 +30,7 @@ public class Course {
 	private String name;
 	private String slug;
 	private String image;
+	@Lob
 	private String description;
 	
 	@ManyToOne
@@ -40,5 +42,21 @@ public class Course {
 	
 	@OneToMany
 	private List<CourseSubscribe> users;
+
+	public Course(Integer id) {
+		super();
+		this.id = id;
+	}
+	
+	public Course(String name, String slug, String image, String description, Topic topic) {
+		super();
+		this.name = name;
+		this.slug = slug;
+		this.image = image;
+		this.description = description;
+		this.topic = topic;
+	}
+	
+	
 	
 }

@@ -1,0 +1,27 @@
+package webtienganh.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import webtienganh.dto.WordDTO;
+import webtienganh.response.PaginationWrapper;
+import webtienganh.service.CourseWordService;
+
+@RestController
+@RequestMapping("/course-words")
+public class CourseWordController {
+
+	@Autowired
+	private CourseWordService courseWordService;
+
+	@GetMapping("")
+	public PaginationWrapper<WordDTO> getWords(@RequestParam("courseSlug") String courseSlug,
+			@RequestParam(name = "page", required = false, defaultValue = "0") int page,
+			@RequestParam(name = "size", required = false, defaultValue = "30") int size) {
+
+		return courseWordService.getList(courseSlug, page, size);
+	}
+}

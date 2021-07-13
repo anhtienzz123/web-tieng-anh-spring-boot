@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CourseInfoResponse {
 
-	private Integer id;
 	private String name;
 	private String slug;
 	private String image;

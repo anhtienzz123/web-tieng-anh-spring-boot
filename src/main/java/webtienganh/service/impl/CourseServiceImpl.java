@@ -15,7 +15,6 @@ import webtienganh.entity.Course;
 import webtienganh.exception.MyExceptionHelper;
 import webtienganh.repository.CourseRepository;
 import webtienganh.response.CourseInfoResponse;
-import webtienganh.response.CourseResponse;
 import webtienganh.response.PaginationWrapper;
 import webtienganh.service.CourseService;
 import webtienganh.utils.MyConstant;
@@ -52,7 +51,7 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public CourseResponse getBySlug(String slug) {
+	public CourseInfoResponse getBySlug(String slug) {
 
 		if (slug == null)
 			throw MyExceptionHelper.throwIllegalArgumentException();
@@ -60,7 +59,7 @@ public class CourseServiceImpl implements CourseService {
 		Course course = courseRepository.findBySlug(slug)
 				.orElseThrow(() -> MyExceptionHelper.throwResourceNotFoundException(MyConstant.KHOA_HOC));
 
-		return courseConverter.toCourseRequest(course);
+		return courseConverter.toCourseInfoRequest(course);
 
 	}
 }

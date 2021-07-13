@@ -18,4 +18,7 @@ public class WordDTO {
 	private String pronounce;
 	private String sound;
 	private String definition;
+	private String example;
+	private String image;
+	
 }
