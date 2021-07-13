@@ -10,11 +10,11 @@
 - `[GET] /courses/topics`: lấy danh sách topic.
 - `[GET] /courses`: lấy danh sách khóa học từ vựng.
   - params: name: String, topicSlug: String, page: int (default: 0), size: int (default: 12) .
-- `[GET] /courses/:slug`: lấy chi tiết khóa học từ vựng.
+- `[GET] /courses/:slug`: lấy chi tiết khóa học từ vựng
 
 ### Course Word
-- `[GET] /course-words`: lấy từ vựng theo slug khóa học.
-  - params: courseSlug: String, page: int (default: 0) , size: int (default: 30).
+- `[GET] /course-words`: lấy từ vựng theo slug khóa học
+  - params: courseSlug: String, page: int (default: 0) , size: int (default: 30)
 
 ### Word Note
 - `[GET] /user/word-note-categories`: lấy danh sách các danh mục ghi chú.

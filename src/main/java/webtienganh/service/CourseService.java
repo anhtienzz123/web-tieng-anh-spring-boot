@@ -8,4 +8,5 @@ public interface CourseService {
 	PaginationWrapper<CourseInfoResponse> getCourseInfos(String name, String topicSlug, int page, int size);
 	
 	CourseInfoResponse getBySlug(String slug);
+
 }
