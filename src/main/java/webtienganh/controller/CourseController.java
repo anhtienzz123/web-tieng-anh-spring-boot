@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import webtienganh.dto.TopicDTO;
 import webtienganh.response.CourseInfoResponse;
-import webtienganh.response.CourseResponse;
 import webtienganh.response.PaginationWrapper;
 import webtienganh.service.CourseService;
 import webtienganh.service.TopicService;
@@ -41,7 +40,7 @@ public class CourseController {
 	}
 
 	@GetMapping("/{slug}")
-	public CourseResponse getCourseBySlug(@PathVariable("slug") String slug) {
+	public CourseInfoResponse getCourseBySlug(@PathVariable("slug") String slug) {
 
 		return courseService.getBySlug(slug);
 	}

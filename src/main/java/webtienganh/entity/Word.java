@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +27,11 @@ public class Word {
 	private String type;
 	private String pronounce;
 	private String sound;
+	@Lob
 	private String definition;
+	@Lob
+	private String example;
+	private String image;
 
 	public Word(Integer id) {
 		super();

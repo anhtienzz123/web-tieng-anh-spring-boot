@@ -23,4 +23,11 @@ public class Topic {
 
 	private String name;
 	private String slug;
+	
+	public Topic(Integer id) {
+		super();
+		this.id = id;
+	}
+	
+	
 }

@@ -18,6 +18,23 @@ public class WordConverter {
 		result.setPronounce(word.getPronounce());
 		result.setSound(word.getSound());
 		result.setDefinition(word.getDefinition());
+		result.setExample(word.getExample());
+		result.setImage(word.getImage());
+		
+		return result;
+	}
+	
+	public Word toWord(WordDTO wordDTO) {
+
+		Word result = new Word();
+		result.setName(wordDTO.getName());
+		result.setMean(wordDTO.getMean());
+		result.setType(wordDTO.getType());
+		result.setPronounce(wordDTO.getPronounce());
+		result.setSound(wordDTO.getSound());
+		result.setDefinition(wordDTO.getDefinition());
+		result.setExample(wordDTO.getExample());
+		result.setImage(wordDTO.getImage());
 		
 		return result;
 	}

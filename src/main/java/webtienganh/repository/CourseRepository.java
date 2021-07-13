@@ -13,4 +13,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	Page<Course> findAllByNameContainingAndTopicSlugContaining(String name, String topicSlug, Pageable pageable);
 	
 	Optional<Course> findBySlug(String slug);
+	
+	boolean existsBySlug(String slug);
 }
