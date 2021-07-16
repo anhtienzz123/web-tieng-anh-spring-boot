@@ -1,7 +1,7 @@
 package webtienganh.service;
 
+import webtienganh.dto.PaginationWrapper;
 import webtienganh.dto.WordDTO;
-import webtienganh.response.PaginationWrapper;
 
 public interface CourseWordService {
 

@@ -1,12 +1,12 @@
 package webtienganh.service;
 
-import webtienganh.response.CourseInfoResponse;
-import webtienganh.response.PaginationWrapper;
+import webtienganh.dto.CourseSummaryDTO;
+import webtienganh.dto.PaginationWrapper;
 
 public interface CourseService {
 
-	PaginationWrapper<CourseInfoResponse> getCourseInfos(String name, String topicSlug, int page, int size);
+	PaginationWrapper<CourseSummaryDTO> getCourseInfos(String name, String topicSlug, int page, int size);
 	
-	CourseInfoResponse getBySlug(String slug);
+	CourseSummaryDTO getBySlug(String slug);
 
 }

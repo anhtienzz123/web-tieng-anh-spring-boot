@@ -1,4 +1,4 @@
-package webtienganh.response;
+package webtienganh.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseInfoResponse {
+public class CourseSummaryDTO {
 
 	private String name;
 	private String slug;

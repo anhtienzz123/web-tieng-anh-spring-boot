@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +25,7 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private int stt;
-	private String type;
+	private int type;
 	private String content;
 	private String a;
 	private String b;
@@ -32,14 +33,15 @@ public class Question {
 	private String d;
 	private String result;
 	private String extra;
-	
+
+	@OneToOne(mappedBy = "question")
+	private Audio Audio;
+
 	@ManyToOne
-	@JoinColumn(name = "exam_id", referencedColumnName = "id", foreignKey = @ForeignKey(name="fk_question_exam"))
+	@JoinColumn(name = "exam_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_question_exam"))
 	private Exam exam;
-	
-	@ManyToOne
-	@JoinColumn(name = "paragraph_id", referencedColumnName = "id", foreignKey = @ForeignKey(name="fk_question_paragraph"))
-	private Paragraph paragraph;
-	
-	
+
+	@OneToOne(mappedBy = "question")
+	private QuestionParagraph questionParagraph;
+
 }

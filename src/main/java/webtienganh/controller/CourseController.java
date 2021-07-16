@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import webtienganh.dto.CourseSummaryDTO;
+import webtienganh.dto.PaginationWrapper;
 import webtienganh.dto.TopicDTO;
-import webtienganh.response.CourseInfoResponse;
-import webtienganh.response.PaginationWrapper;
 import webtienganh.service.CourseService;
 import webtienganh.service.TopicService;
 
@@ -28,7 +28,7 @@ public class CourseController {
 	private TopicService topicService;
 
 	@GetMapping("")
-	public PaginationWrapper<CourseInfoResponse> getCourseInfos(
+	public PaginationWrapper<CourseSummaryDTO> getCourseInfos(
 
 			@RequestParam(name = "name", required = false, defaultValue = "") String name,
 			@RequestParam(name = "topicSlug", required = false, defaultValue = "") String topicSlug,
@@ -40,7 +40,7 @@ public class CourseController {
 	}
 
 	@GetMapping("/{slug}")
-	public CourseInfoResponse getCourseBySlug(@PathVariable("slug") String slug) {
+	public CourseSummaryDTO getCourseBySlug(@PathVariable("slug") String slug) {
 
 		return courseService.getBySlug(slug);
 	}

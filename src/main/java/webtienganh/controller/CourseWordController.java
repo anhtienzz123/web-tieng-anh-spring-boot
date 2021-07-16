@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import webtienganh.dto.PaginationWrapper;
 import webtienganh.dto.WordDTO;
-import webtienganh.response.PaginationWrapper;
 import webtienganh.service.CourseWordService;
 
 @RestController

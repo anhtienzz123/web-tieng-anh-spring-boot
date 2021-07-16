@@ -1,11 +1,11 @@
-package webtienganh.request;
+package webtienganh.dto;
 
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
 @Data
-public class LoginRequest {
+public class LoginRequestDTO {
 
 	@NotBlank
 	private String username;

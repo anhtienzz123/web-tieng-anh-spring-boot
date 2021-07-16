@@ -11,12 +11,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import webtienganh.converter.WordConverter;
+import webtienganh.dto.PaginationWrapper;
 import webtienganh.dto.WordDTO;
 import webtienganh.entity.CourseWord;
 import webtienganh.exception.MyExceptionHelper;
 import webtienganh.repository.CourseRepository;
 import webtienganh.repository.CourseWordRepository;
-import webtienganh.response.PaginationWrapper;
 import webtienganh.service.CourseWordService;
 import webtienganh.utils.MyConstant;
 

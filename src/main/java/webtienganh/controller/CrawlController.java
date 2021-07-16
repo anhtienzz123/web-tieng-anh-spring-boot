@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import webtienganh.converter.WordConverter;
+import webtienganh.dto.CourseDTO;
 import webtienganh.dto.WordDTO;
 import webtienganh.entity.Course;
 import webtienganh.entity.CourseWord;
@@ -19,7 +20,6 @@ import webtienganh.entity.Word;
 import webtienganh.repository.CourseRepository;
 import webtienganh.repository.CourseWordRepository;
 import webtienganh.repository.WordRepository;
-import webtienganh.response.CourseResponse;
 import webtienganh.utils.CommonFuc;
 
 @RestController
@@ -38,7 +38,7 @@ public class CrawlController {
 	private WordConverter wordConverter;
 
 	@PostMapping("/courses")
-	public void crawlCourse(@RequestBody CourseResponse courseReq, @RequestParam("topicId") Integer topicId) {
+	public void crawlCourse(@RequestBody CourseDTO courseReq, @RequestParam("topicId") Integer topicId) {
 
 		System.out.println("size: " + courseReq.getWords().size());
 		Integer courseId = saveCourse(courseReq, topicId);
@@ -68,7 +68,7 @@ public class CrawlController {
 
 	}
 
-	private Integer saveCourse(CourseResponse courseReq, Integer topicId) {
+	private Integer saveCourse(CourseDTO courseReq, Integer topicId) {
 
 		String name = courseReq.getName();
 		String slug = CommonFuc.toSlug(name);

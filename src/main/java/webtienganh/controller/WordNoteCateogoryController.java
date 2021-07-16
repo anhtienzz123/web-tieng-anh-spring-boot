@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import webtienganh.dto.WordNoteCategoryDTO;
-import webtienganh.request.WordNoteRequest;
+import webtienganh.dto.WordNoteDTO;
 import webtienganh.service.WordNoteCategoryService;
 import webtienganh.utils.RestConstant;
 
@@ -59,7 +59,7 @@ public class WordNoteCateogoryController {
 
 	@PostMapping(value = "/add-word", consumes = RestConstant.CONSUMES_JSON)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void addWordNote(@Valid @RequestBody WordNoteRequest wordNoteRequest) {
+	public void addWordNote(@Valid @RequestBody WordNoteDTO wordNoteRequest) {
 
 		Integer wordNoteCategoryId = wordNoteRequest.getWordNoteCategoryId();
 		Integer wordId = wordNoteRequest.getWordId();

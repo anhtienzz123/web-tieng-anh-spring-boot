@@ -1,15 +1,13 @@
 package webtienganh.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,24 +19,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Exam {
+public class Audio {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Lob
 	private String name;
-	private String slug;
-	private String part1Audio;
-	private String part2Audio;
-	private String part3Audio;
-	private String part4Audio;
 
-	@OneToMany(mappedBy = "exam")
-	private List<Question> questions;
-
-	@ManyToOne
-	@JoinColumn(name = "book_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_exam_book"))
-	private Book book;
-
+	@OneToOne
+	@JoinColumn(name = "question_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_audio_question"))
+	private Question question;
+	
 }
