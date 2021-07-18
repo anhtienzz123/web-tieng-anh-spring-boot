@@ -25,4 +25,9 @@
 - `[DELETE] /user/word-note-categories/:id`: Xóa danh mục ghi chú.
 - `[POST] /user/word-note-categories/add-word`: Thêm từ vào danh mục ghi chú.
   - body: {wordNoteCategoryId: int, wordId: int}
+  
+### Exam
+- `[GET] /exams/:slug`: lấy câu hỏi của bài thi.
+- `[POST] /exams/:slug/result`: kiểm tra kết quả bài thi.
+  - body:  Map<Integer, String> answers.
 

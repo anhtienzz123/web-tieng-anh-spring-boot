@@ -1,4 +1,4 @@
-package webtienganh.request;
+package webtienganh.dto;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class WordNoteRequest {
+public class WordNoteDTO {
 
 	@NotNull(message = "wordNoteCategoryId không null")
 	@Min(value = 1, message = "wordNoteCategoryId >= 1" )

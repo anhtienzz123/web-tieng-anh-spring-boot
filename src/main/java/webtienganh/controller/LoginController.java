@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import webtienganh.dto.LoginRequestDTO;
+import webtienganh.dto.LoginResponseDTO;
 import webtienganh.entity.User;
 import webtienganh.repository.UserRepository;
-import webtienganh.request.LoginRequest;
-import webtienganh.response.LoginResponse;
 import webtienganh.service.UserService;
 import webtienganh.utils.JwtTokenProvider;
 
@@ -38,7 +38,7 @@ public class LoginController {
 	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/login")
-	public LoginResponse authenticateUser(@RequestBody LoginRequest loginRequest) {
+	public LoginResponseDTO authenticateUser(@RequestBody LoginRequestDTO loginRequest) {
 
 		String username = loginRequest.getUsername();
 		Authentication authentication = authenticationManager
@@ -47,7 +47,7 @@ public class LoginController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = tokenProvider.generateToken(authentication.getName());
 		userService.updateToken(username, jwt);
-		return new LoginResponse(loginRequest.getUsername(), jwt);
+		return new LoginResponseDTO(loginRequest.getUsername(), jwt);
 
 	}
 

@@ -11,11 +11,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import webtienganh.converter.CourseConverter;
+import webtienganh.dto.CourseSummaryDTO;
+import webtienganh.dto.PaginationWrapper;
 import webtienganh.entity.Course;
 import webtienganh.exception.MyExceptionHelper;
 import webtienganh.repository.CourseRepository;
-import webtienganh.response.CourseInfoResponse;
-import webtienganh.response.PaginationWrapper;
 import webtienganh.service.CourseService;
 import webtienganh.utils.MyConstant;
 
@@ -30,7 +30,7 @@ public class CourseServiceImpl implements CourseService {
 	private CourseConverter courseConverter;
 
 	@Override
-	public PaginationWrapper<CourseInfoResponse> getCourseInfos(String name, String topicSlug, int page, int size) {
+	public PaginationWrapper<CourseSummaryDTO> getCourseInfos(String name, String topicSlug, int page, int size) {
 
 		if (name == null || topicSlug == null || page < 0 || size < 0)
 			throw MyExceptionHelper.throwIllegalArgumentException();
@@ -38,12 +38,12 @@ public class CourseServiceImpl implements CourseService {
 		Page<Course> coursePage = courseRepository.findAllByNameContainingAndTopicSlugContaining(name, topicSlug,
 				PageRequest.of(page, size));
 		
-		PaginationWrapper<CourseInfoResponse> result = new PaginationWrapper<>();
+		PaginationWrapper<CourseSummaryDTO> result = new PaginationWrapper<>();
 		result.setPage(page);
 		result.setSize(size);
 		result.setPageMax(coursePage.getTotalPages());
 
-		List<CourseInfoResponse> data = coursePage.toList().stream().map(c -> courseConverter.toCourseInfoRequest(c))
+		List<CourseSummaryDTO> data = coursePage.toList().stream().map(c -> courseConverter.toCourseInfoRequest(c))
 				.collect(Collectors.toList());
 		result.setData(data);
 
@@ -51,7 +51,7 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public CourseInfoResponse getBySlug(String slug) {
+	public CourseSummaryDTO getBySlug(String slug) {
 
 		if (slug == null)
 			throw MyExceptionHelper.throwIllegalArgumentException();

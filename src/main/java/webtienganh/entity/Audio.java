@@ -1,12 +1,13 @@
 package webtienganh.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,21 +19,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Paragraph {
+public class Audio {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String content;
-	private String image;
-	private String transcript;
 
-	@OneToMany(mappedBy = "paragraph")
-	private List<QuestionParagraph> questionParagraphs;
+	@Lob
+	private String name;
 
-	public Paragraph(Integer id) {
-		super();
-		this.id = id;
-	}
-
+	@OneToOne
+	@JoinColumn(name = "question_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_audio_question"))
+	private Question question;
+	
 }

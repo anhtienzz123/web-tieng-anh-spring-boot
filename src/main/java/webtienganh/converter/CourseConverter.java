@@ -6,10 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import webtienganh.dto.CourseSummaryDTO;
+import webtienganh.dto.CourseDTO;
 import webtienganh.dto.WordDTO;
 import webtienganh.entity.Course;
-import webtienganh.response.CourseInfoResponse;
-import webtienganh.response.CourseResponse;
 
 @Component
 public class CourseConverter {
@@ -17,9 +17,9 @@ public class CourseConverter {
 	@Autowired
 	private WordConverter wordConverter;
 
-	public CourseInfoResponse toCourseInfoRequest(Course course) {
+	public CourseSummaryDTO toCourseInfoRequest(Course course) {
 
-		CourseInfoResponse result = new CourseInfoResponse();
+		CourseSummaryDTO result = new CourseSummaryDTO();
 		result.setName(course.getName());
 		result.setSlug(course.getSlug());
 		result.setImage(course.getImage());
@@ -30,9 +30,9 @@ public class CourseConverter {
 		return result;
 	}
 
-	public CourseResponse toCourseRequest(Course course) {
+	public CourseDTO toCourseRequest(Course course) {
 
-		CourseResponse result = new CourseResponse();
+		CourseDTO result = new CourseDTO();
 		result.setName(course.getName());
 		result.setSlug(course.getSlug());
 		result.setImage(course.getImage());

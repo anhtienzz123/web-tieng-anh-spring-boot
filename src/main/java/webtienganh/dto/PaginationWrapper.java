@@ -1,4 +1,4 @@
-package webtienganh.response;
+package webtienganh.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

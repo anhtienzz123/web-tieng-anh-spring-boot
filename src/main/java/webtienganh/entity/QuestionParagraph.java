@@ -19,35 +19,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Question {
+public class QuestionParagraph  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private int stt;
-	private int type;
-	private String content;
-	private String a;
-	private String b;
-	private String c;
-	private String d;
-	private String result;
-	private String extra;
-
-	@OneToOne(mappedBy = "question")
-	private Audio Audio;
+	
+	@OneToOne
+	@JoinColumn(name = "question_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_questionparagraph_question"))
+	private Question question;
 
 	@ManyToOne
-	@JoinColumn(name = "exam_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_question_exam"))
-	private Exam exam;
-
-	@OneToOne(mappedBy = "question")
-	private QuestionParagraph questionParagraph;
-
-	public Question(Integer id) {
-		super();
-		this.id = id;
-	}
-
-	
+	@JoinColumn(name = "paragraph_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_coursesubscribe_paragraph"))
+	private Paragraph paragraph;
 }

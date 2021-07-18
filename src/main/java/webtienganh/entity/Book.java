@@ -1,12 +1,9 @@
 package webtienganh.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,21 +15,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Paragraph {
+public class Book {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String content;
+	private String name;
 	private String image;
-	private String transcript;
-
-	@OneToMany(mappedBy = "paragraph")
-	private List<QuestionParagraph> questionParagraphs;
-
-	public Paragraph(Integer id) {
+	
+	public Book(Integer id) {
 		super();
 		this.id = id;
 	}
 
+	
 }

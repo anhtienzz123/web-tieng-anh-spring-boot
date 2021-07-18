@@ -1,4 +1,4 @@
-package webtienganh.response;
+package webtienganh.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ErrorResponse {
+public class ErrorDTO {
 
 	private int status;
 	private Object error;
