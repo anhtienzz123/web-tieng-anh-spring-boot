@@ -15,7 +15,7 @@ import lombok.Setter;
 public class Part3_4_6_7QuestionGroupDTO {
 
 	private String image;
-	private String pharagraph;
+	private String paragraph;
 	private List<QuestionSummaryDTO> questions = new ArrayList<>();
 
 }

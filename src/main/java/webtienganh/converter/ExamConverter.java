@@ -241,7 +241,7 @@ public class ExamConverter {
 		Part3_4_6_7QuestionGroupDTO result = new Part3_4_6_7QuestionGroupDTO();
 
 		result.setImage(paragraph.getImage());
-		result.setPharagraph(paragraph.getContent());
+		result.setParagraph(paragraph.getContent());
 
 		for (QuestionParagraph questionParagraph : paragraph.getQuestionParagraphs()) {
 
