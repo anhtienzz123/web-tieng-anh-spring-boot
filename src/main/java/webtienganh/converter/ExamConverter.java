@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import webtienganh.dto.ExamQuestionDTO;
 import webtienganh.dto.ExamResultDTO;
 import webtienganh.dto.Part1_2QuestionDTO;
-import webtienganh.dto.Part3_4_6_7GroupDTO;
+import webtienganh.dto.Part3_4_6_7QuestionGroupDTO;
 import webtienganh.dto.Part3_4_6_7ResultGroupDTO;
 import webtienganh.dto.QuestionResultDTO;
 import webtienganh.dto.QuestionSummaryDTO;
@@ -65,12 +65,12 @@ public class ExamConverter {
 		result.setPart2(part2QuestionsOfResult);
 
 		// part3
-		List<Part3_4_6_7GroupDTO> part3GroupsOfResult = paragraphsOfPart3.stream()
+		List<Part3_4_6_7QuestionGroupDTO> part3GroupsOfResult = paragraphsOfPart3.stream()
 				.map(paragraph -> toPart3_4_6_7GroupDTO(paragraph)).collect(Collectors.toList());
 		result.setPart3(part3GroupsOfResult);
 
 		// part4
-		List<Part3_4_6_7GroupDTO> part4GroupsOfResult = paragraphsOfPart4.stream()
+		List<Part3_4_6_7QuestionGroupDTO> part4GroupsOfResult = paragraphsOfPart4.stream()
 				.map(paragraph -> toPart3_4_6_7GroupDTO(paragraph)).collect(Collectors.toList());
 		result.setPart4(part4GroupsOfResult);
 
@@ -80,12 +80,12 @@ public class ExamConverter {
 		result.setPart5(part5QuestionsOfResult);
 
 		// part 6
-		List<Part3_4_6_7GroupDTO> part6GroupsOfResult = paragraphsOfPart6.stream()
+		List<Part3_4_6_7QuestionGroupDTO> part6GroupsOfResult = paragraphsOfPart6.stream()
 				.map(paragraph -> toPart3_4_6_7GroupDTO(paragraph)).collect(Collectors.toList());
 		result.setPart6(part6GroupsOfResult);
 
 		// part 7
-		List<Part3_4_6_7GroupDTO> part7GroupsOfResult = paragraphsOfPart7.stream()
+		List<Part3_4_6_7QuestionGroupDTO> part7GroupsOfResult = paragraphsOfPart7.stream()
 				.map(paragraph -> toPart3_4_6_7GroupDTO(paragraph)).collect(Collectors.toList());
 		result.setPart7(part7GroupsOfResult);
 
@@ -117,9 +117,9 @@ public class ExamConverter {
 		List<QuestionResultDTO> part1QuestionsOfResult = part1Questions.stream().map(question -> {
 
 			String choice = answers.get(question.getStt());
-			
+
 			return questionConverter.toQuestionResultDTO(question, choice);
-			
+
 		}).collect(Collectors.toList());
 		result.setPart1(part1QuestionsOfResult);
 
@@ -127,7 +127,7 @@ public class ExamConverter {
 		List<QuestionResultDTO> part2QuestionsOfResult = part2Questions.stream().map(question -> {
 
 			String choice = answers.get(question.getStt());
-			
+
 			return questionConverter.toQuestionResultDTO(question, choice);
 
 		}).collect(Collectors.toList());
@@ -147,7 +147,7 @@ public class ExamConverter {
 		List<QuestionResultDTO> part5QuestionsOfResult = part5Questions.stream().map(question -> {
 
 			String choice = answers.get(question.getStt());
-			
+
 			return questionConverter.toQuestionResultDTO(question, choice);
 
 		}).collect(Collectors.toList());
@@ -224,7 +224,10 @@ public class ExamConverter {
 		Part1_2QuestionDTO result = new Part1_2QuestionDTO();
 
 		result.setStt(question.getStt());
-		result.setContent(question.getContent());
+
+		if (question.getType() == 1) {
+			result.setContent(question.getContent());
+		}
 
 		Audio audio = question.getAudio();
 		String audioName = audio != null ? audio.getName() : "";
@@ -233,9 +236,9 @@ public class ExamConverter {
 		return result;
 	}
 
-	public Part3_4_6_7GroupDTO toPart3_4_6_7GroupDTO(Paragraph paragraph) {
+	public Part3_4_6_7QuestionGroupDTO toPart3_4_6_7GroupDTO(Paragraph paragraph) {
 
-		Part3_4_6_7GroupDTO result = new Part3_4_6_7GroupDTO();
+		Part3_4_6_7QuestionGroupDTO result = new Part3_4_6_7QuestionGroupDTO();
 
 		result.setImage(paragraph.getImage());
 		result.setPharagraph(paragraph.getContent());
@@ -253,7 +256,7 @@ public class ExamConverter {
 
 		Part3_4_6_7ResultGroupDTO result = new Part3_4_6_7ResultGroupDTO();
 		result.setImage(paragraph.getImage());
-		result.setPharagraph(paragraph.getContent());
+		result.setParagraph(paragraph.getContent());
 
 		for (QuestionParagraph questionParagraph : paragraph.getQuestionParagraphs()) {
 

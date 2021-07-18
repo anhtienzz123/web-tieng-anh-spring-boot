@@ -22,5 +22,11 @@ public class Book {
 	private Integer id;
 	private String name;
 	private String image;
+	
+	public Book(Integer id) {
+		super();
+		this.id = id;
+	}
 
+	
 }

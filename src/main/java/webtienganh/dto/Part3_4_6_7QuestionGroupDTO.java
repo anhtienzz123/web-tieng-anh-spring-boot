@@ -12,12 +12,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Part3_4_6_7GroupDTO {
+public class Part3_4_6_7QuestionGroupDTO {
 
 	private String image;
-	private String paragraph;
-	private String transcript;
-	private List<QuestionDTO> questions = new ArrayList<>();
+	private String pharagraph;
+	private List<QuestionSummaryDTO> questions = new ArrayList<>();
 
-	
 }

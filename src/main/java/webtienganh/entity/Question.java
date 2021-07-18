@@ -44,4 +44,10 @@ public class Question {
 	@OneToOne(mappedBy = "question")
 	private QuestionParagraph questionParagraph;
 
+	public Question(Integer id) {
+		super();
+		this.id = id;
+	}
+
+	
 }

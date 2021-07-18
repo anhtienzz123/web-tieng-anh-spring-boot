@@ -16,6 +16,9 @@ public class QuestionResultDTO {
 
 	public boolean isCorrect() {
 
+		if (choice == null)
+			return false;
+
 		return question.getResult().equalsIgnoreCase(choice);
 
 	}

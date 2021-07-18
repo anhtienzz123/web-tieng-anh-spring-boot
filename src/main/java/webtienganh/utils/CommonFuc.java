@@ -12,6 +12,9 @@ public class CommonFuc {
 
 	public static String toSlug(String input) {
 
+		if(input == null)
+			return "";
+		
 		String nowhitespace = WHITESPACE.matcher(input).replaceAll("-");
 		String normalized = Normalizer.normalize(nowhitespace, Form.NFD);
 		String slug = NONLATIN.matcher(normalized).replaceAll("");

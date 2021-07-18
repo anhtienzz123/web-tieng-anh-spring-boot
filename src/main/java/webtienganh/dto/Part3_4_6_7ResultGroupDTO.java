@@ -18,7 +18,9 @@ public class Part3_4_6_7ResultGroupDTO {
 	@Setter(AccessLevel.NONE)
 	private String image;
 	@Setter(AccessLevel.NONE)
-	private String pharagraph;
+	private String paragraph;
+	@Setter(AccessLevel.NONE)
+	private String transcript;
 	private List<QuestionResultDTO> results = new ArrayList<>();
 
 	public void setImage(String image) {
@@ -31,13 +33,24 @@ public class Part3_4_6_7ResultGroupDTO {
 		this.image = image;
 	}
 
-	public void setPharagraph(String pharagraph) {
+	public void setParagraph(String paragraph) {
 
-		if (pharagraph == null) {
-			this.pharagraph = "";
+		if (paragraph == null) {
+			this.paragraph = "";
 			return;
 		}
 
-		this.pharagraph = pharagraph;
+		this.paragraph = paragraph;
 	}
+
+	public void setTranscript(String transcript) {
+
+		if (transcript == null) {
+			this.transcript = "";
+			return;
+		}
+
+		this.transcript = transcript;
+	}
+
 }

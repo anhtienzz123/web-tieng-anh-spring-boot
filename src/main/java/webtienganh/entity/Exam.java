@@ -41,4 +41,11 @@ public class Exam {
 	@JoinColumn(name = "book_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_exam_book"))
 	private Book book;
 
+	public Exam(Integer id) {
+		
+		this.id = id;
+	}
+	
+	
+
 }

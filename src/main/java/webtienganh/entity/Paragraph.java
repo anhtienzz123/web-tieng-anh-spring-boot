@@ -25,8 +25,14 @@ public class Paragraph {
 	private Integer id;
 	private String content;
 	private String image;
-	
+	private String transcript;
+
 	@OneToMany(mappedBy = "paragraph")
 	private List<QuestionParagraph> questionParagraphs;
-	
+
+	public Paragraph(Integer id) {
+		super();
+		this.id = id;
+	}
+
 }
