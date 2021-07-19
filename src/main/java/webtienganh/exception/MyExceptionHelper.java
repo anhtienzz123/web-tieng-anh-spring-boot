@@ -26,7 +26,7 @@ public class MyExceptionHelper {
 	public static AuthenticationException throwAuthenticationException() {
 
 		if (authenticationException == null)
-			authenticationException = new AuthenticationException("Not Authentication");
+			authenticationException = new AuthenticationException("Không có quyền vào tài nguyên");
 
 		return authenticationException;
 	}
