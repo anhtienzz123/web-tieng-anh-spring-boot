@@ -54,7 +54,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	protected ErrorDTO handleAuthenticationException(AuthenticationException ex) {
 
-		ErrorDTO result = ErrorDTO.builder().status(400).error("Không có quyền vào tài nguyên").build();
+		ErrorDTO result = ErrorDTO.builder().status(400).error(ex.getMessage()).build();
 
 		return result;
 

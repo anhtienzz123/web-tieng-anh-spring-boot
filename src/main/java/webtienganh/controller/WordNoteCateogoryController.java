@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import webtienganh.dto.ErrorDTO;
 import webtienganh.dto.WordNoteCategoryDTO;
+import webtienganh.dto.WordNoteCategorySummaryDTO;
 import webtienganh.dto.WordNoteDTO;
+import webtienganh.dto.WordReviewDTO;
 import webtienganh.service.WordNoteCategoryService;
 import webtienganh.utils.RestConstant;
 
@@ -27,25 +32,26 @@ import webtienganh.utils.RestConstant;
 @CrossOrigin
 public class WordNoteCateogoryController {
 
+
 	@Autowired
 	private WordNoteCategoryService wordNoteCategoryService;
 
 	@GetMapping("")
-	public List<WordNoteCategoryDTO> getAllInfos() {
+	public List<WordNoteCategorySummaryDTO> getAllInfos() {
 
-		return wordNoteCategoryService.getAllCategoryInfos();
+		return wordNoteCategoryService.getAllCategorySummaries();
 	}
 
 	@PostMapping(value = "", consumes = RestConstant.CONSUMES_JSON)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public WordNoteCategoryDTO createWordNoteCategory(@Valid @RequestBody WordNoteCategoryDTO wordNoteCategory) {
+	public WordNoteCategorySummaryDTO createWordNoteCategory(@Valid @RequestBody WordNoteCategorySummaryDTO wordNoteCategory) {
 
 		return wordNoteCategoryService.add(wordNoteCategory.getName());
 	}
 
 	@PutMapping(value = "/{id}", consumes = RestConstant.CONSUMES_JSON)
-	public WordNoteCategoryDTO updateWordNoteCategory(@PathVariable("id") Integer id,
-			@Valid @RequestBody WordNoteCategoryDTO wordNoteCategory) {
+	public WordNoteCategorySummaryDTO updateWordNoteCategory(@PathVariable("id") Integer id,
+			@Valid @RequestBody WordNoteCategorySummaryDTO wordNoteCategory) {
 
 		return wordNoteCategoryService.update(id, wordNoteCategory.getName());
 	}
@@ -65,7 +71,27 @@ public class WordNoteCateogoryController {
 		Integer wordId = wordNoteRequest.getWordId();
 
 		wordNoteCategoryService.addWord(wordNoteCategoryId, wordId);
-		;
+	}
+
+	@GetMapping("/{id}")
+	public WordNoteCategoryDTO getById(@PathVariable("id") Integer id) {
+		
+		return wordNoteCategoryService.getById(id);
+	}
+	
+	@GetMapping("/review/{id}")
+	public ResponseEntity<?> reviewWordNote(@PathVariable("id") Integer id,
+			@RequestParam(value = "type", required = false, defaultValue = "0") int type,
+			@RequestParam("ids") List<Integer> ids
+
+	) {
+
+		WordReviewDTO result = wordNoteCategoryService.getWordReview(id, type, ids);
+		
+		if(result == null) 
+			return new ResponseEntity<>(new ErrorDTO(400, "Không còn từ ôn tập"), HttpStatus.OK);
+	
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 }

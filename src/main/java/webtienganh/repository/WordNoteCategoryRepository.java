@@ -11,4 +11,5 @@ public interface WordNoteCategoryRepository extends JpaRepository<WordNoteCatego
 	List<WordNoteCategory> findAllByUserUsername(String username);
 
 	boolean existsByUserUsernameAndId(String username, Integer id);
+	
 }

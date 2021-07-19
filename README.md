@@ -25,6 +25,13 @@
 - `[DELETE] /user/word-note-categories/:id`: Xóa danh mục ghi chú.
 - `[POST] /user/word-note-categories/add-word`: Thêm từ vào danh mục ghi chú.
   - body: {wordNoteCategoryId: int, wordId: int}
+- `[GET] /user/word-note-categories/:id`: lấy chi tiết danh mục ghi chú.
+- `[POST] /user/word-note-categories/review/:id`: ôn tập từ vựng.
+  - params:
+  	- type: int (mặc định là 0)
+  		- 0: 1 câu hỏi và 4 từ trắc nghiệm.
+  		- 1: gợi ý và điền từ.
+  	- ids: List Integer: Danh sách ids đã ôn tập rồi. 
 
 ### Book
 - `[GET] /books`: lấy tên sách và đề thi của sách.
@@ -33,4 +40,5 @@
 - `[GET] /exams/:slug`: lấy câu hỏi của bài thi.
 - `[POST] /exams/:slug/result`: kiểm tra kết quả bài thi.
   - body:  Map<Integer, String> answers.
+
 

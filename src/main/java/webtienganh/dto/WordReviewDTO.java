@@ -11,7 +11,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class WordNoteCategoryDTO extends WordNoteCategorySummaryDTO{
+public class WordReviewDTO {
 
-	private List<WordDTO> words;
+	private Integer id;
+	private String name;
+	private String image;
+	private String definition;
+
+	private List<String> suggestions;
+
 }
