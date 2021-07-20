@@ -28,7 +28,7 @@ public class CourseController {
 	private TopicService topicService;
 
 	@GetMapping("")
-	public PaginationWrapper<CourseSummaryDTO> getCourseInfos(
+	public PaginationWrapper<List<CourseSummaryDTO>> getCourseInfos(
 
 			@RequestParam(name = "name", required = false, defaultValue = "") String name,
 			@RequestParam(name = "topicSlug", required = false, defaultValue = "") String topicSlug,

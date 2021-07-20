@@ -32,22 +32,22 @@ public class CourseWordServiceImpl implements CourseWordService {
 	private CourseRepository courseRepository;
 
 	@Override
-	public PaginationWrapper<WordDTO> getList(String courseSlug, int page, int size) {
+	public PaginationWrapper<List<WordDTO>> getList(String courseSlug, int page, int size) {
 
 		if (courseSlug == null || page < 0 || size < 0)
 			throw MyExceptionHelper.throwIllegalArgumentException();
 
 		if (!courseRepository.existsBySlug(courseSlug))
-			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.KHOA_HOC);
+			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.COURSE);
 
-		PaginationWrapper<WordDTO> result = new PaginationWrapper<WordDTO>();
+		PaginationWrapper<List<WordDTO>> result = new PaginationWrapper<>();
 
 		result.setPage(page);
 		result.setSize(size);
 
 		Page<CourseWord> courseWordPage = courseWordRepository.findAllByCourseSlug(courseSlug,
 				PageRequest.of(page, size));
-		result.setPageMax(courseWordPage.getTotalPages());
+		result.setTotalPages(courseWordPage.getTotalPages());
 
 		List<WordDTO> wordDTOs = courseWordPage.toList().stream()
 				.map(courseWordEle -> wordConverter.toWordDTO(courseWordEle.getWord())).collect(Collectors.toList());

@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PaginationWrapper<T extends Object> {
 
-	private Object data;
+	private T data;
 	private int page;
 	private int size;
-	private int pageMax;
+	private int totalPages;
 
 }
