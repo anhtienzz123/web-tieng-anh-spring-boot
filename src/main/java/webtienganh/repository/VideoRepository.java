@@ -14,4 +14,6 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
 			Pageable pageable);
 	
 	Optional<Video> findBySlug(String slug);
+	
+	boolean existsByName(String name);
 }

@@ -15,17 +15,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class VideoCategory {
+public class VideoWord {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	private String name;
-	private String slug;
 	
-	public VideoCategory(Integer id) {
-		super();
+	private String name;
+	private String origin;
+	private String sound;
+	
+	public VideoWord(Integer id) {
 		this.id = id;
 	}
 	

@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import webtienganh.converter.VideoConverter;
 import webtienganh.converter.WordConverter;
 import webtienganh.dto.CourseDTO;
 import webtienganh.dto.Part3_4_6_7GroupDTO;
 import webtienganh.dto.QuestionDTO;
+import webtienganh.dto.VideoDTO;
+import webtienganh.dto.VideoWordDTO;
 import webtienganh.dto.WordDTO;
 import webtienganh.entity.Audio;
 import webtienganh.entity.Book;
@@ -27,6 +30,10 @@ import webtienganh.entity.Paragraph;
 import webtienganh.entity.Question;
 import webtienganh.entity.QuestionParagraph;
 import webtienganh.entity.Topic;
+import webtienganh.entity.Video;
+import webtienganh.entity.VideoWord;
+import webtienganh.entity.VideoWordTempt;
+import webtienganh.entity.VideoWordTempt_PK;
 import webtienganh.entity.Word;
 import webtienganh.repository.AudioRepository;
 import webtienganh.repository.CourseRepository;
@@ -35,6 +42,9 @@ import webtienganh.repository.ExamRepository;
 import webtienganh.repository.ParagraphRepository;
 import webtienganh.repository.QuestionParagraphRepository;
 import webtienganh.repository.QuestionRepository;
+import webtienganh.repository.VideoRepository;
+import webtienganh.repository.VideoWordRepository;
+import webtienganh.repository.VideoWordTemptRepository;
 import webtienganh.repository.WordRepository;
 import webtienganh.utils.CommonFuc;
 import webtienganh.utils.ExamCrawl;
@@ -69,6 +79,11 @@ public class CrawlController {
 
 	@Autowired
 	private QuestionParagraphRepository questionParagraphRepository;
+
+	@Autowired
+	private VideoRepository videoRepository;
+	@Autowired
+	private VideoConverter videoConverter;
 
 	@PostMapping("/courses")
 	public void crawlCourse(@RequestBody CourseDTO courseReq, @RequestParam("topicId") Integer topicId) {
@@ -220,5 +235,59 @@ public class CrawlController {
 		exam.setBook(new Book(examCrawl.getBookId()));
 
 		return examRepository.save(exam).getId();
+	}
+
+	@Autowired
+	private VideoWordTemptRepository videoWordTemptRepository;
+
+	@PostMapping(value = "/videos")
+	public void saveVideo(@RequestBody VideoDTO videoDTO) {
+
+		if (videoRepository.existsByName(videoDTO.getName()))
+			return;
+
+		Video video = videoConverter.toVideo(videoDTO);
+		Integer id = 0;
+
+		if (videoRepository.existsByName(videoDTO.getName()))
+			id = videoRepository.findBySlug(video.getSlug()).get().getId();
+		else
+			id = videoRepository.save(video).getId();
+
+		for (VideoWordDTO videoWordDTO : videoDTO.getVideoWords()) {
+
+			Integer videoWordId = saveVideoWord(videoWordDTO);
+
+			if(videoWordTemptRepository.existsById(new VideoWordTempt_PK(id, videoWordId)))
+				continue;
+			
+			VideoWordTempt videoWordTempt = new VideoWordTempt();
+			videoWordTempt.setVideo(new Video(id));
+			videoWordTempt.setVideoWord(new VideoWord(videoWordId));
+			videoWordTempt.setFrequency(videoWordDTO.getFrequency());
+
+			videoWordTemptRepository.save(videoWordTempt);
+
+		}
+
+	}
+
+	@Autowired
+	private VideoWordRepository videoWordRepository;
+
+	public Integer saveVideoWord(VideoWordDTO videoWordDTO) {
+
+		String name = videoWordDTO.getName();
+
+		if (videoWordRepository.existsByName(name))
+			return videoWordRepository.findByName(name).get().getId();
+
+		VideoWord videoWord = new VideoWord();
+		videoWord.setName(name);
+		videoWord.setOrigin(videoWordDTO.getOrigin());
+		videoWord.setSound(videoWordDTO.getSound());
+
+		return videoWordRepository.save(videoWord).getId();
+
 	}
 }

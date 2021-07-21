@@ -52,7 +52,7 @@ public class VideoServiceImpl implements VideoService {
 				timeToTempt, PageRequest.of(page, size));
 
 		List<VideoSummaryDTO> videoSummaryDTOs = videosPage.toList().stream()
-				.map(video -> videoConverter.toVideoDTO(video)).collect(Collectors.toList());
+				.map(video -> videoConverter.toVideoSummaryDTO(video)).collect(Collectors.toList());
 		result.setData(videoSummaryDTOs);
 
 		result.setTotalPages(videosPage.getTotalPages());

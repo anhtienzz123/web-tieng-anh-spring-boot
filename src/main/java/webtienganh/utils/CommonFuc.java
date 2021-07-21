@@ -45,7 +45,7 @@ public class CommonFuc {
 
 		List<String> result = new ArrayList<>();
 
-		StringBuffer tempt = new StringBuffer(input.replaceAll(" ",""));
+		StringBuffer tempt = new StringBuffer(input.replaceAll(" ", ""));
 		while (tempt.length() > 0) {
 
 			int indexRandom = new Random().nextInt(tempt.length());
@@ -56,13 +56,28 @@ public class CommonFuc {
 		return result;
 	}
 
+	public static String getDurationString(long seconds) {
+
+		long hours = seconds / 3600;
+		long minutes = (seconds % 3600) / 60;
+		seconds = seconds % 60;
+
+		return twoDigitString(hours) + ":" + twoDigitString(minutes) + ":" + twoDigitString(seconds);
+	}
+
+	public static String twoDigitString(long number) {
+
+		if (number == 0)
+			return "00";
+
+		if (number / 10 == 0)
+			return "0" + number;
+
+		return String.valueOf(number);
+	}
+
 	public static void main(String[] args) {
 
-		List<String> x = new ArrayList<>();
-		x.add("1");
-		x.add("2");
-		x.add("3");
-		x.add("4");
-		shuffleOrder(x).stream().forEach(s -> System.out.println(s));
+		System.out.println("time: " + getDurationString(3755));
 	}
 }

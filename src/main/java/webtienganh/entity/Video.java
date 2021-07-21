@@ -2,6 +2,7 @@ package webtienganh.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -36,10 +37,19 @@ public class Video {
 	private long duration;
 	private String url;
 
-	@OneToMany(mappedBy = "video")
+	@OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
 	private List<Subtitle> subtitles;
 
+	@OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
+	private List<VideoWordTempt> words;
+	
 	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_video_cateogory"))
 	private VideoCategory category;
+
+	public Video(Integer id) {
+		this.id = id;
+	}
+	
+	
 }
