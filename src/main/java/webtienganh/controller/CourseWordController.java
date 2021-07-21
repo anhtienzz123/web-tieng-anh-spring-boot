@@ -1,5 +1,7 @@
 package webtienganh.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,7 @@ public class CourseWordController {
 	private CourseWordService courseWordService;
 
 	@GetMapping("")
-	public PaginationWrapper<WordDTO> getWords(@RequestParam("courseSlug") String courseSlug,
+	public PaginationWrapper<List<WordDTO>> getWords(@RequestParam("courseSlug") String courseSlug,
 			@RequestParam(name = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(name = "size", required = false, defaultValue = "30") int size) {
 

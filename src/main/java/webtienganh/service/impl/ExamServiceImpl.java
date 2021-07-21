@@ -33,7 +33,7 @@ public class ExamServiceImpl implements ExamService {
 			throw MyExceptionHelper.throwIllegalArgumentException();
 
 		Exam exam = examRepository.findBySlug(slug)
-				.orElseThrow(() -> MyExceptionHelper.throwResourceNotFoundException(MyConstant.BAI_TEST));
+				.orElseThrow(() -> MyExceptionHelper.throwResourceNotFoundException(MyConstant.EXAM));
 
 		return examConverter.toExamQuestionDTO(exam);
 	}
@@ -45,7 +45,7 @@ public class ExamServiceImpl implements ExamService {
 			throw MyExceptionHelper.throwIllegalArgumentException();
 
 		Exam exam = examRepository.findBySlug(slug)
-				.orElseThrow(() -> MyExceptionHelper.throwResourceNotFoundException(MyConstant.BAI_TEST));
+				.orElseThrow(() -> MyExceptionHelper.throwResourceNotFoundException(MyConstant.EXAM));
 
 		return examConverter.toExamResultDTO(exam, answers);
 	}

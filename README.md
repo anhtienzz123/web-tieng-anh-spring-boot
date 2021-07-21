@@ -26,7 +26,7 @@
 - `[POST] /user/word-note-categories/add-word`: Thêm từ vào danh mục ghi chú.
   - body: {wordNoteCategoryId: int, wordId: int}
 - `[GET] /user/word-note-categories/:id`: lấy chi tiết danh mục ghi chú.
-- `[POST] /user/word-note-categories/review/:id`: ôn tập từ vựng.
+- `[GET] /user/word-note-categories/review/:id`: ôn tập từ vựng.
   - params:
   	- type: int (mặc định là 0)
   		- 0: 1 câu hỏi và 4 từ trắc nghiệm.
@@ -41,4 +41,14 @@
 - `[POST] /exams/:slug/result`: kiểm tra kết quả bài thi.
   - body:  Map<Integer, String> answers.
 
+### Video
+- `[GET] /video-categories`: lấy danh mục video.
+- `[GET] /videos`: lấy danh sách thông tin tóm tắt video.
+  - params: 
+  	- categorySlug: String.
+  	- timeFrom: long (mặc định là 0): Khoảng thời gian đầu cần tìm.
+  	- timeTo: long (mặc định là 0): Khoảng thời gian cuối cần tìm.
+  	- page: int (mặc định là 0).
+  	- size: int (mặc định là 12).
+- `[GET] /videos/:slug`: lấy chi tiết video theo slug.
 

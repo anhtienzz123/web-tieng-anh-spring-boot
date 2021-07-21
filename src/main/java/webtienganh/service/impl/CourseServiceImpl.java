@@ -30,7 +30,7 @@ public class CourseServiceImpl implements CourseService {
 	private CourseConverter courseConverter;
 
 	@Override
-	public PaginationWrapper<CourseSummaryDTO> getCourseInfos(String name, String topicSlug, int page, int size) {
+	public PaginationWrapper<List<CourseSummaryDTO>> getCourseInfos(String name, String topicSlug, int page, int size) {
 
 		if (name == null || topicSlug == null || page < 0 || size < 0)
 			throw MyExceptionHelper.throwIllegalArgumentException();
@@ -38,10 +38,10 @@ public class CourseServiceImpl implements CourseService {
 		Page<Course> coursePage = courseRepository.findAllByNameContainingAndTopicSlugContaining(name, topicSlug,
 				PageRequest.of(page, size));
 		
-		PaginationWrapper<CourseSummaryDTO> result = new PaginationWrapper<>();
+		PaginationWrapper<List<CourseSummaryDTO>> result = new PaginationWrapper<>();
 		result.setPage(page);
 		result.setSize(size);
-		result.setPageMax(coursePage.getTotalPages());
+		result.setTotalPages(coursePage.getTotalPages());
 
 		List<CourseSummaryDTO> data = coursePage.toList().stream().map(c -> courseConverter.toCourseInfoRequest(c))
 				.collect(Collectors.toList());
@@ -57,7 +57,7 @@ public class CourseServiceImpl implements CourseService {
 			throw MyExceptionHelper.throwIllegalArgumentException();
 
 		Course course = courseRepository.findBySlug(slug)
-				.orElseThrow(() -> MyExceptionHelper.throwResourceNotFoundException(MyConstant.KHOA_HOC));
+				.orElseThrow(() -> MyExceptionHelper.throwResourceNotFoundException(MyConstant.COURSE));
 
 		return courseConverter.toCourseInfoRequest(course);
 

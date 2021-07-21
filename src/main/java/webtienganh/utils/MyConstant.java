@@ -2,9 +2,10 @@ package webtienganh.utils;
 
 public class MyConstant {
 
-	public static final String KHOA_HOC = "Khóa học";
-	public static final String GHI_CHU = "Ghi chú";
-	public static final String TU_VUNG = "Từ vựng";
-	public static final String BAI_TEST = "Bài test";
+	public static final String COURSE = "Course";
+	public static final String NOTE = "Note";
+	public static final String WORD = "Word";
+	public static final String EXAM = "Exam";
+	public static final String VIDEO = "Video";
 	
 }

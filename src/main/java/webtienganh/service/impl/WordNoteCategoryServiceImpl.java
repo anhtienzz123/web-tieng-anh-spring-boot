@@ -81,7 +81,7 @@ public class WordNoteCategoryServiceImpl implements WordNoteCategoryService {
 		checkAuthenticationForCategory(id);
 
 		WordNoteCategory result = wordNoteCategoryRepository.findById(id)
-				.orElseThrow(() -> MyExceptionHelper.throwResourceNotFoundException(MyConstant.GHI_CHU));
+				.orElseThrow(() -> MyExceptionHelper.throwResourceNotFoundException(MyConstant.NOTE));
 		result.setName(name);
 
 		return wordNoteCategoryConverter.toWordNoteCategoryDTO(wordNoteCategoryRepository.save(result));
@@ -113,7 +113,7 @@ public class WordNoteCategoryServiceImpl implements WordNoteCategoryService {
 
 		// check có từ vựng đó không
 		if (!wordRepository.existsById(wordId))
-			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.TU_VUNG);
+			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.WORD);
 
 		// check từ này đã lưu chưa
 		WordNote_PK wordNote_PK = new WordNote_PK(id, wordId);
