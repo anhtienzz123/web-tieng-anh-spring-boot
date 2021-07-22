@@ -21,4 +21,6 @@ public interface WordNoteCategoryService {
 	WordNoteCategoryDTO getById(Integer id);
 	
 	WordReviewDTO getWordReview(Integer slug, int type, List<Integer> idsWasReview);
+	
+	void deleteWord(Integer id, Integer wordId);
 }

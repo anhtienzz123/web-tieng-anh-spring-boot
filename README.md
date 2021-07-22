@@ -31,7 +31,8 @@
   	- type: int (mặc định là 0)
   		- 0: 1 câu hỏi và 4 từ trắc nghiệm.
   		- 1: gợi ý và điền từ.
-  	- ids: List Integer: Danh sách ids đã ôn tập rồi. 
+  	- ids: List Integer: Danh sách ids đã ôn tập rồi.
+- `[DELETE] /user/word-note-categories/:id/words/:wordId`: xóa từ ra khỏi ghi chú.
 
 ### Book
 - `[GET] /books`: lấy tên sách và đề thi của sách.

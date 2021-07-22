@@ -56,11 +56,20 @@ public class WordNoteCateogoryController {
 		return wordNoteCategoryService.update(id, wordNoteCategory.getName());
 	}
 
-	@DeleteMapping(value = "/{id}")
+	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void deleteWordNoteCategory(@PathVariable("id") Integer id) {
 
 		wordNoteCategoryService.delete(id);
+	}
+	
+	@DeleteMapping("/{id}/words/{wordId}")
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void deleteWord(@PathVariable("id") Integer id, 
+			@PathVariable("wordId") Integer wordId
+			) {
+		wordNoteCategoryService.deleteWord(id, wordId);
+		
 	}
 
 	@PostMapping(value = "/add-word", consumes = RestConstant.CONSUMES_JSON)
@@ -93,5 +102,6 @@ public class WordNoteCateogoryController {
 	
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
 
 }

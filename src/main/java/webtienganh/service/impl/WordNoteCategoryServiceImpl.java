@@ -181,6 +181,21 @@ public class WordNoteCategoryServiceImpl implements WordNoteCategoryService {
 		return wordNoteCategoryConverter.toWordReviewDTO(wordNoteReview, suggestionsRandom);
 	}
 
+	@Override
+	public void deleteWord(Integer id, Integer wordId) {
+
+		if (id == null || wordId == null || id <= 0 || wordId <=0)
+			throw MyExceptionHelper.throwIllegalArgumentException();
+
+		checkAuthenticationForCategory(id);
+
+		WordNote_PK wordNote_PK = new WordNote_PK(id, wordId);
+		
+		if (wordNoteRepository.existsById(wordNote_PK))
+			wordNoteRepository.deleteById(wordNote_PK);
+
+	}
+
 	// check xem user có vai trò với wordNoteCategory
 	private void checkAuthenticationForCategory(Integer id) {
 
