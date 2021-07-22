@@ -48,6 +48,7 @@
   	- categorySlug: String.
   	- timeFrom: long (mặc định là 0): Khoảng thời gian đầu cần tìm.
   	- timeTo: long (mặc định là 0): Khoảng thời gian cuối cần tìm.
+  	- level: int (1-7) (mặc định là 0: tìm tất cả): tìm theo level.
   	- page: int (mặc định là 0).
   	- size: int (mặc định là 12).
 - `[GET] /videos/:slug`: lấy chi tiết video theo slug.
