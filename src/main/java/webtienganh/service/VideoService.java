@@ -8,6 +8,8 @@ import webtienganh.dto.VideoSummaryDTO;
 
 public interface VideoService {
 
-	PaginationWrapper<List<VideoSummaryDTO>> getListSummaries(String categorySlug, long timeFrom, long timeTo, int page, int size);
+	PaginationWrapper<List<VideoSummaryDTO>> getListSummaries(String categorySlug, long timeFrom, long timeTo,
+			int level, int page, int size);
+
 	VideoDTO getOne(String slug);
 }

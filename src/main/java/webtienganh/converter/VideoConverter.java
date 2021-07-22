@@ -3,6 +3,7 @@ package webtienganh.converter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +21,7 @@ public class VideoConverter {
 
 	@Autowired
 	private SubtitleConverter subtitleConverter;
-	
+
 	@Autowired
 	private VideoWordConverter videoWordConverter;
 
@@ -32,6 +33,7 @@ public class VideoConverter {
 		result.setSlug(video.getSlug());
 		result.setImage(video.getImage());
 		result.setDuration(video.getDuration());
+		result.setLevel(video.getLevel());
 		return result;
 	}
 
@@ -45,12 +47,13 @@ public class VideoConverter {
 		result.setDuration(video.getDuration());
 		result.setUrl(video.getUrl());
 		result.setDescription(video.getDescription());
+		result.setLevel(video.getLevel());
 
 		List<SubtitleDTO> subtitleDTOs = video.getSubtitles().stream()
 				.map(subEle -> subtitleConverter.toSubtitleDTO(subEle)).collect(Collectors.toList());
 		result.setSubtitles(subtitleDTOs);
-		
-		List<VideoWordDTO> words = video.getWords().stream()
+
+		List<VideoWordDTO> words = video.getVideoWords().stream()
 				.map(videoWordTemptEle -> videoWordConverter.toVideoWordDTO(videoWordTemptEle))
 				.collect(Collectors.toList());
 		result.setVideoWords(words);
@@ -71,12 +74,13 @@ public class VideoConverter {
 
 		String name = videoDTO.getName();
 		result.setName(name);
-		result.setSlug(CommonFuc.toSlug(name));
+		result.setSlug(CommonFuc.toSlug(name)+ RandomStringUtils.randomAlphanumeric(5));
 
 		result.setImage(videoDTO.getImage());
 		result.setDescription(videoDTO.getDescription());
 		result.setDuration(videoDTO.getDuration());
 		result.setUrl(videoDTO.getUrl());
+		result.setLevel(videoDTO.getLevel());
 
 		List<Subtitle> subtitles = videoDTO.getSubtitles().stream()
 				.map(subEle -> subtitleConverter.toSubtitle(subEle, result)).collect(Collectors.toList());

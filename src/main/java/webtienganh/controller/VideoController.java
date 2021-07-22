@@ -23,12 +23,13 @@ public class VideoController {
 
 	@GetMapping("")
 	public PaginationWrapper<List<VideoSummaryDTO>> getListSummaries(@RequestParam("categorySlug") String categorySlug,
-			@RequestParam(name="timeFrom", required = false, defaultValue = "0") long timeFrom,
+			@RequestParam(name = "timeFrom", required = false, defaultValue = "0") long timeFrom,
 			@RequestParam(name = "timeTo", required = false, defaultValue = "0") long timeTo,
+			@RequestParam(name = "level", required = false, defaultValue = "0") int level,
 			@RequestParam(name = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(name = "size", required = false, defaultValue = "12") int size) {
 
-		return videoService.getListSummaries(categorySlug, timeFrom, timeTo, page, size);
+		return videoService.getListSummaries(categorySlug, timeFrom, timeTo, level, page, size);
 	}
 
 	@GetMapping("/{slug}")

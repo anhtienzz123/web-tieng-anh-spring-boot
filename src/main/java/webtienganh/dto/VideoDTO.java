@@ -18,6 +18,7 @@ public class VideoDTO extends VideoSummaryDTO {
 
 	private String url;
 	private String description;
+	private int level;
 	private List<SubtitleDTO> subtitles;
 	private List<VideoWordDTO> videoWords;
 

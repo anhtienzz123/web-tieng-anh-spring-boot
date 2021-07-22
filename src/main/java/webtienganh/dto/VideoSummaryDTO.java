@@ -17,6 +17,7 @@ public class VideoSummaryDTO {
 	private String slug;
 	private String image;
 	private long duration;
+	private int level;
 
 	public String getDurationString() {
 

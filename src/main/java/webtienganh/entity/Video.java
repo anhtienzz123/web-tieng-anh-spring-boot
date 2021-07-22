@@ -36,12 +36,13 @@ public class Video {
 	private String description;
 	private long duration;
 	private String url;
+	private int level;
 
 	@OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
 	private List<Subtitle> subtitles;
 
 	@OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
-	private List<VideoWordTempt> words;
+	private List<VideoWord> videoWords;
 	
 	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_video_cateogory"))

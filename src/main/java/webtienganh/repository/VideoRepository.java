@@ -13,7 +13,12 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
 	Page<Video> findAllByCategorySlugAndDurationBetween(String categorySlug, long timeForm, long timeTo,
 			Pageable pageable);
 	
+	Page<Video> findAllByCategorySlugAndDurationBetweenAndLevel(String categorySlug, long timeForm, long timeTo, int level,
+			Pageable pageable);
+	
 	Optional<Video> findBySlug(String slug);
 	
 	boolean existsByName(String name);
+	
+	Optional<Video> findByName(String name);
 }
