@@ -9,12 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionSummaryDTO {
+public class NameSlugDTO {
 
-	private int stt;
-	private String content;
-	private String a;
-	private String b;
-	private String c;
-	private String d;
+	private String name;
+	private String slug;
 }

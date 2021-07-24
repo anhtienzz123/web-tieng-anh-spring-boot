@@ -36,7 +36,7 @@ public class QuestionConverter {
 		result.setD(question.getD());
 
 		Audio audio = question.getAudio();
-		String audioName = audio != null ? audio.getName() : "";
+		String audioName = audio != null ? audio.getName() : null;
 		result.setAudio(audioName);
 
 		result.setType(question.getType());
@@ -54,7 +54,6 @@ public class QuestionConverter {
 		result.setQuestion(toQuestionDTO(question));
 
 		return result;
-
 	}
-
+	
 }

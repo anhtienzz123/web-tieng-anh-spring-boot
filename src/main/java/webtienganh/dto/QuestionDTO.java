@@ -15,5 +15,4 @@ public class QuestionDTO extends QuestionSummaryDTO {
 	private String result;
 	private String extra;
 	private String audio;
-
 }

@@ -41,6 +41,9 @@
 - `[GET] /exams/:slug`: lấy câu hỏi của bài thi.
 - `[POST] /exams/:slug/result`: kiểm tra kết quả bài thi.
   - body:  Map<Integer, String> answers.
+- `[GET] /exams`: lấy tất cả tên và slug của bài thi.
+- `[GET] /exams/:slug/parts`: lấy câu hỏi của part theo đề thi.
+  - params: type: int (từ 1 - 7).
 
 ### Video
 - `[GET] /video-categories`: lấy danh mục video.

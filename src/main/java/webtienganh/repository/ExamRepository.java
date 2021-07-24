@@ -10,10 +10,9 @@ import webtienganh.entity.Exam;
 import webtienganh.entity.NameSlugOnly;
 
 public interface ExamRepository extends JpaRepository<Exam, Integer> {
-	
+
 	Optional<Exam> findBySlug(String slug);
-	
-	@Query(value="SELECT ex.name, ex.slug FROM Exam ex where ex.book_id = ?1", nativeQuery = true)
+
+	@Query(value = "SELECT ex.name, ex.slug FROM Exam ex where ex.book_id = ?1", nativeQuery = true)
 	List<NameSlugOnly> getAllNameSlugOnlysByBookId(Integer bookId);
-	
 }
