@@ -18,6 +18,4 @@ public class Part3_4_6_7GroupDTO {
 	private String paragraph;
 	private String transcript;
 	private List<QuestionDTO> questions = new ArrayList<>();
-
-	
 }
