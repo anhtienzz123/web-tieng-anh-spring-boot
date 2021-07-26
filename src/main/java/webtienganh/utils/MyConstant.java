@@ -7,5 +7,5 @@ public class MyConstant {
 	public static final String WORD = "Word";
 	public static final String EXAM = "Exam";
 	public static final String VIDEO = "Video";
-	
+	public static final String BLOG = "Blog";
 }

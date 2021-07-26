@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import webtienganh.converter.VideoConverter;
 import webtienganh.converter.WordConverter;
+import webtienganh.dto.BlogDTO;
 import webtienganh.dto.CourseDTO;
 import webtienganh.dto.Part3_4_6_7GroupDTO;
 import webtienganh.dto.QuestionDTO;
@@ -43,6 +44,7 @@ import webtienganh.repository.QuestionRepository;
 import webtienganh.repository.VideoRepository;
 import webtienganh.repository.VideoWordRepository;
 import webtienganh.repository.WordRepository;
+import webtienganh.service.BlogService;
 import webtienganh.utils.CommonFuc;
 import webtienganh.utils.ExamCrawl;
 
@@ -264,4 +266,19 @@ public class CrawlController {
 		}
 
 	}
+
+	@Autowired
+	private BlogService blogService;
+
+	@PostMapping("/blogs")
+	public void saveBlog(@RequestBody List<BlogDTO> blogDTOs) {
+
+		System.out.println("size: " + blogDTOs.size());
+		for (BlogDTO blogDTO : blogDTOs) {
+
+			blogService.save(blogDTO);
+		}
+
+	}
+
 }
