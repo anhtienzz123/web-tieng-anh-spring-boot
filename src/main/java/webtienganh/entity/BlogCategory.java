@@ -23,4 +23,9 @@ public class BlogCategory {
 	
 	private String name;
 	private String slug;
+	
+	public BlogCategory(Integer id) {
+	
+		this.id = id;
+	}
 }

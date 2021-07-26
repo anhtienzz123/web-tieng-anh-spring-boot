@@ -34,11 +34,11 @@ public class BlogServiceImpl implements BlogService {
 	public PaginationWrapper<List<BlogSummaryDTO>> getListSummaries(String name, String categorySlug, int page,
 			int size) {
 
-		if(name == null || categorySlug == null || page < 0 || size <= 0)
+		if (name == null || categorySlug == null || page < 0 || size <= 0)
 			throw MyExceptionHelper.throwIllegalArgumentException();
-		
-		Page<Blog> blogPage = blogRepository.findAllByNameContainingAndBlogCategorySlugContainingOrderByCreateDate(name, categorySlug,
-				PageRequest.of(page, size));
+
+		Page<Blog> blogPage = blogRepository.findAllByNameContainingAndBlogCategorySlugContainingOrderByCreateDate(name,
+				categorySlug, PageRequest.of(page, size));
 
 		var result = new PaginationWrapper<List<BlogSummaryDTO>>();
 
@@ -53,16 +53,24 @@ public class BlogServiceImpl implements BlogService {
 
 		return result;
 	}
-	
+
 	@Override
 	public BlogDTO getOne(String slug) {
-		
-		if(slug == null)
+
+		if (slug == null)
 			throw MyExceptionHelper.throwIllegalArgumentException();
-		
-		Blog blog = blogRepository.findBySlug(slug).
-				orElseThrow(() ->  MyExceptionHelper.throwResourceNotFoundException(MyConstant.BLOG));
-		
+
+		Blog blog = blogRepository.findBySlug(slug)
+				.orElseThrow(() -> MyExceptionHelper.throwResourceNotFoundException(MyConstant.BLOG));
+
 		return blogConverter.toBlogDTO(blog);
+	}
+
+	@Override
+	public BlogDTO save(BlogDTO blogDTO) {
+
+		Blog blogSave = blogRepository.save(blogConverter.toBlog(blogDTO));
+
+		return blogConverter.toBlogDTO(blogSave);
 	}
 }

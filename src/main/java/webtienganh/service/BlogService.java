@@ -11,4 +11,6 @@ public interface BlogService {
 	PaginationWrapper<List<BlogSummaryDTO>> getListSummaries(String name, String categorySlug, int page, int size);
 	
 	BlogDTO getOne(String slug);
+	
+	BlogDTO save(BlogDTO blogDTO);
 }
