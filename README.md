@@ -57,3 +57,13 @@
   	- size: int (mặc định là 12).
 - `[GET] /videos/:slug`: lấy chi tiết video theo slug.
 
+### Blog
+- `[GET] /blog-categories`: lấy danh mục blog.
+- `[GET] /blogs`: lấy danh sách thông tin tóm tắt blog.
+  - params: 
+  	- name: String (mặc định là ""): Tên blog.
+  	- categorySlug: String (mặc định là ""): Slug danh mục.
+  	- page: int (mặc định là 0).
+  	- size: int (mặc định là 12).
+- `[GET] /blogs/:slug`: lấy chi tiết blog theo slug.
+
