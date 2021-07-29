@@ -67,3 +67,5 @@
   	- size: int (mặc định là 12).
 - `[GET] /blogs/:slug`: lấy chi tiết blog theo slug.
 
+### Me
+- `[GET] /user/me/role`: lấy tên và danh sách vai trò.
