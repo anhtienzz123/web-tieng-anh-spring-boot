@@ -49,8 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.cors().and().csrf().disable()
 				.authorizeRequests()
+				.antMatchers("/admin/exams", "/admin/exams/**").hasAnyRole("EXAM", "ADMIN")
+				.antMatchers("/admin/videos", "/admin/videos/**").hasAnyRole("VIDEO", "ADMIN")
+				.antMatchers("/admin/blogs", "/admin/blogs/**").hasAnyRole("BLOG", "ADMIN")
 				.antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+				.antMatchers("/user/**").authenticated()
 				.anyRequest().permitAll();
 
 		// Thêm một lớp Filter kiểm tra jwt
