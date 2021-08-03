@@ -107,3 +107,11 @@
 - `[PUT] /admin/videos/categories/:id`: cập nhật danh mục.
   - body: {name: String}.
 - `[DELETE] /admin/videos/categories/:id`: xóa danh mục.
+
+### Topic
+- `[GET] /courses/topics`: lấy danh sách topic.
+- `[POST] /admin/courses/topics`: thêm topic.
+  - body: {name: String}.
+- `[PUT] /admin/courses/topics/:id`: cập nhật topic.
+  - body: {name: String}.
+- `[DELETE] /admin/courses/topics/:id`: xóa topic.
