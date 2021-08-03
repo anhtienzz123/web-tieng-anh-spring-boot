@@ -36,7 +36,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 	@ResponseStatus(code = HttpStatus.OK)
 	protected ErrorDTO handleRuntimeCustomException(RuntimeCustomException e) {
 		
-		System.out.println("Runtimecustom: "+ e.getError());
 		ErrorDTO result = ErrorDTO.builder().status(400).error(e.getError()).build();
 
 		return result;

@@ -61,7 +61,6 @@ public class BlogCategoryServiceImpl implements BlogCategoryService {
 			error.put("name", "Tên danh mục blog bị trùng");
 			throw MyExceptionHelper.throwRuntimeCustomException(error);
 		}
-
 	}
 
 	@Override
@@ -73,12 +72,7 @@ public class BlogCategoryServiceImpl implements BlogCategoryService {
 		if (!blogCategoryRepository.existsById(id))
 			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.BLOG_CATEGORY);
 
-		try {
-			blogCategoryRepository.deleteById(id);
-		} catch (Exception e) {
-
-			throw MyExceptionHelper.throwRuntimeCustomException(MyConstant.BLOG_CATEGORY + " không xóa được");
-		}
+		blogCategoryRepository.deleteById(id);
 	}
 
 }
