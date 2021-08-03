@@ -100,3 +100,10 @@
 - `[PUT] /admin/exams/books/:id/image`: cập nhật ảnh cho sách.
   - body: image: File.
 
+### Video Category
+- `[GET] /video-categories`: lấy danh sách danh mục.
+- `[POST] /admin/videos/categories`: thêm danh mục.
+  - body: {name: String}.
+- `[PUT] /admin/videos/categories/:id`: cập nhật danh mục.
+  - body: {name: String}.
+- `[DELETE] /admin/videos/categories/:id`: xóa danh mục.
