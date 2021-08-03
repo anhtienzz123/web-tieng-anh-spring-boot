@@ -68,4 +68,15 @@
 - `[GET] /blogs/:slug`: lấy chi tiết blog theo slug.
 
 ### Me
-- `[GET] /user/me/role`: lấy tên và danh sách vai trò.
+- `[GET] /user/me/role`: lấy vai trò của user.
+
+## Api Admin
+
+### Blog
+- `[GET] /admin/blogs/:id`: lấy chi tiết blog.
+- `[POST] /admin/blogs`: thêm blog.
+  - body: {name: String, description: String, content: String, categoryId: Interger}.
+- `[PUT] /admin/blogs/:id`: cập nhật blog.
+  - body: {id: Integer, name: String, description: String, content: String, categoryId: Interger}.	- `[DELETE] /admin/blogs/:id`: xóa blog.
+- `[PUT] /admin/blogs/:id/image`: cập nhật ảnh cho blog.
+

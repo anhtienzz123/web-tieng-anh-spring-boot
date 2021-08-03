@@ -1,10 +1,14 @@
 package webtienganh.exception;
 
+import org.springframework.validation.BindingResult;
+
 public class MyExceptionHelper {
 
 	private static IllegalArgumentException illegalArgumentException;
 	private static ResourceNotFoundException resourceNotFoundException;
 	private static AuthenticationException authenticationException;
+	private static EntityValidatorException entityValidatorException;
+	private static RuntimeCustomException runtimeCustomException;
 
 	public static IllegalArgumentException throwIllegalArgumentException() {
 
@@ -30,5 +34,23 @@ public class MyExceptionHelper {
 
 		return authenticationException;
 	}
+	
+	public static EntityValidatorException throwEntityValidatorException(BindingResult bindingResult) {
 
+		if (entityValidatorException == null)
+			entityValidatorException = new EntityValidatorException();
+
+		entityValidatorException.setBindingResult(bindingResult);
+		return entityValidatorException;
+	}
+	
+	public static RuntimeCustomException throwRuntimeCustomException(Object error) {
+
+		if (runtimeCustomException == null)
+			runtimeCustomException = new RuntimeCustomException();
+
+		runtimeCustomException.setError(error);
+		return runtimeCustomException;
+	}
+	
 }

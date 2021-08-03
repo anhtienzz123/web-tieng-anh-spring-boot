@@ -13,4 +13,8 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
 	Page<Blog> findAllByNameContainingAndBlogCategorySlugContainingOrderByCreateDate(String name, String categorySlug, Pageable pageable);
 	
 	Optional<Blog> findBySlug(String slug);
+	
+	boolean existsByName(String name);
+	
+	boolean existsByIdNotAndName(Integer id, String name);
 }
