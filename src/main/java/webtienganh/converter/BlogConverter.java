@@ -9,11 +9,9 @@ import webtienganh.dto.BlogDTO;
 import webtienganh.dto.BlogSummaryDTO;
 import webtienganh.entity.Blog;
 import webtienganh.entity.BlogCategory;
-import webtienganh.exception.MyExceptionHelper;
 import webtienganh.repository.BlogRepository;
 import webtienganh.utils.CommonFuc;
 import webtienganh.utils.DateProcessor;
-import webtienganh.utils.MyConstant;
 
 @Component
 public class BlogConverter {
@@ -58,9 +56,8 @@ public class BlogConverter {
 
 		Integer id = blogDTO.getId();
 
-		if (id != null)
-			blogResult = blogRepository.findById(id)
-					.orElseThrow(() -> MyExceptionHelper.throwResourceNotFoundException(MyConstant.BLOG));
+		if (id != 0)
+			blogResult = blogRepository.findById(id).get();
 		else
 			blogResult.setCreateDate(LocalDate.now());
 
@@ -68,10 +65,9 @@ public class BlogConverter {
 		blogResult.setName(name);
 		blogResult.setSlug(CommonFuc.toSlug(name));
 
-		blogResult.setImage(blogDTO.getImage());
 		blogResult.setDescription(blogDTO.getDescription());
 		blogResult.setContent(blogDTO.getContent());
-		blogResult.setBlogCategory(new BlogCategory(blogDTO.getCategoryId()));
+		blogResult.setBlogCategory(new BlogCategory(blogDTO.getCategoryId(), blogDTO.getCategoryName()));
 
 		return blogResult;
 	}

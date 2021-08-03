@@ -1,18 +1,70 @@
 package webtienganh.controller.admin;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import webtienganh.dto.BlogDTO;
+import webtienganh.service.BlogService;
+import webtienganh.utils.RestConstant;
 
 @RestController
 @RequestMapping("/admin/blogs")
 @CrossOrigin
 public class BlogAdminController {
 
-	@GetMapping()
-	public void getList() {
-		System.out.println("blogs");
+	@Autowired
+	private BlogService blogService;
+
+	@GetMapping("/{id}")
+	public BlogDTO getOne(@PathVariable("id") Integer id) {
+
+		return blogService.getOne(id);
+	}
+
+	@PostMapping(value = "", consumes = RestConstant.CONSUMES_JSON)
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public BlogDTO addBlog(@Valid @RequestBody BlogDTO blogDTO) {
+
+		blogDTO.setId(0);
+		return blogService.save(blogDTO);
+	}
+
+	@PutMapping(value = "/{id}", consumes = RestConstant.CONSUMES_JSON)
+	public BlogDTO updateBlog(@PathVariable("id") Integer id, @Valid @RequestBody BlogDTO blogDTO) {
+
+		blogDTO.setId(id);
+
+		return blogService.save(blogDTO);
+	}
+
+	@PutMapping(value = "/{id}/image", produces = { MediaType.IMAGE_PNG_VALUE, "application/json" })
+	public String updateImage(@PathVariable("id") Integer id, @RequestParam("image") MultipartFile image) {
+
+		String fileName = blogService.uploadImage(id, image);
+
+		return fileName;
+	}
+
+	@DeleteMapping("/{id}")
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void deleteBlog(@PathVariable("id") Integer id) {
+
+		blogService.delete(id);
 	}
 
 }

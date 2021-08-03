@@ -1,6 +1,8 @@
 package webtienganh.exception;
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpHeaders;
@@ -22,12 +24,22 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-		List<String> errors = ex.getBindingResult().getFieldErrors().stream().map(x -> x.getDefaultMessage())
-				.collect(Collectors.toList());
+		Map<String, Object> errors = new TreeMap<>();
+		ex.getBindingResult().getFieldErrors().forEach(s -> errors.put(s.getField(), s.getDefaultMessage()));
 
-		ErrorDTO body = ErrorDTO.builder().status(status.value()).error(errors).build();
-		return new ResponseEntity<>(body, headers, status);
+		ErrorDTO body = ErrorDTO.builder().status(400).error(errors).build();
+		return new ResponseEntity<>(body, HttpStatus.OK);
 
+	}
+	
+	@ExceptionHandler(value = { RuntimeCustomException.class })
+	@ResponseStatus(code = HttpStatus.OK)
+	protected ErrorDTO handleRuntimeCustomException(RuntimeCustomException e) {
+		
+		System.out.println("Runtimecustom: "+ e.getError());
+		ErrorDTO result = ErrorDTO.builder().status(400).error(e.getError()).build();
+
+		return result;
 	}
 
 	@ExceptionHandler(value = { ResourceNotFoundException.class })
@@ -49,7 +61,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		return result;
 
 	}
-	
+
 	@ExceptionHandler(value = { AuthenticationException.class })
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	protected ErrorDTO handleAuthenticationException(AuthenticationException ex) {
@@ -60,4 +72,24 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
 	}
 
+	@ExceptionHandler(value = { EntityValidatorException.class })
+	@ResponseStatus(code = HttpStatus.OK)
+	protected ErrorDTO handleEntityValidatorException(EntityValidatorException ex) {
+
+		List<String> errors = ex.getBindingResult().getFieldErrors().stream().map(x -> x.getDefaultMessage())
+				.collect(Collectors.toList());
+
+		ErrorDTO result = ErrorDTO.builder().status(400).error(errors).build();
+		return result;
+	}
+
+	@ExceptionHandler(value = { RuntimeException.class })
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	protected ErrorDTO handleRuntimeException(RuntimeException e) {
+
+		ErrorDTO result = ErrorDTO.builder().status(500).error(e.getMessage()).build();
+		e.printStackTrace();
+		return result;
+	}
+	
 }
