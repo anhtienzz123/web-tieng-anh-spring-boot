@@ -77,6 +77,15 @@
 - `[POST] /admin/blogs`: thêm blog.
   - body: {name: String, description: String, content: String, categoryId: Interger}.
 - `[PUT] /admin/blogs/:id`: cập nhật blog.
-  - body: {id: Integer, name: String, description: String, content: String, categoryId: Interger}.	- `[DELETE] /admin/blogs/:id`: xóa blog.
+  - body: {name: String, description: String, content: String, categoryId: Interger}.	
+- `[DELETE] /admin/blogs/:id`: xóa blog.
 - `[PUT] /admin/blogs/:id/image`: cập nhật ảnh cho blog.
+
+### Blog Category
+- `[GET] /blog-categories`: lấy danh sách danh mục.
+- `[POST] /admin/blogs/categories`: thêm danh mục.
+  - body: {name: String}.
+- `[PUT] /admin/blogs/categories/:id`: cập nhật danh mục.
+  - body: {name: String}.
+- `[DELETE] /admin/blogs/categories/:id`: xóa danh mục.
 

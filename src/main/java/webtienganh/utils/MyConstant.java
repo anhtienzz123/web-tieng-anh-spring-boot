@@ -9,4 +9,5 @@ public class MyConstant {
 	public static final String VIDEO = "Video";
 	public static final String BLOG = "Blog";
 	public static final String USER = "User";
+	public static final String BLOG_CATEGORY = "Blog Category";
 }
