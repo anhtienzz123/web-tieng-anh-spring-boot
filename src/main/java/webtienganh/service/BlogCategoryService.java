@@ -7,4 +7,7 @@ import webtienganh.dto.BlogCategoryDTO;
 public interface BlogCategoryService {
 
 	List<BlogCategoryDTO> getList();
+	
+	BlogCategoryDTO save(BlogCategoryDTO blogCategoryDTO);
+	void delete(Integer id);
 }

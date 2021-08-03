@@ -77,9 +77,19 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public BlogDTO save(BlogDTO blogDTO) {
 
-		Integer blogId = blogDTO.getId();
-		if (blogDTO == null || blogId < 0)
+		validate(blogDTO);
+
+		Blog blog = blogRepository.save(blogConverter.toBlog(blogDTO));
+
+		return blogConverter.toBlogDTO(blog);
+	}
+
+	private void validate(BlogDTO blogDTO) {
+
+		if (blogDTO == null || blogDTO.getId() < 0)
 			throw MyExceptionHelper.throwIllegalArgumentException();
+
+		Integer blogId = blogDTO.getId();
 
 		if (blogId != 0 && !blogRepository.existsById(blogId))
 			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.BLOG);
@@ -91,10 +101,6 @@ public class BlogServiceImpl implements BlogService {
 
 			throw MyExceptionHelper.throwRuntimeCustomException(error);
 		}
-
-		Blog blog = blogRepository.save(blogConverter.toBlog(blogDTO));
-
-		return blogConverter.toBlogDTO(blog);
 	}
 
 	@Override
