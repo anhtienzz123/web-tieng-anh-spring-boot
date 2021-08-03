@@ -56,7 +56,7 @@ public class BlogCategoryServiceImpl implements BlogCategoryService {
 		if (id != 0 && !blogCategoryRepository.existsById(id))
 			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.BLOG_CATEGORY);
 
-		if (blogCategoryRepository.existsByIdNotAndName(blogCategoryDTO.getId(), blogCategoryDTO.getName())) {
+		if (blogCategoryRepository.existsByIdNotAndName(id, blogCategoryDTO.getName())) {
 			Map<String, String> error = new HashMap<>();
 			error.put("name", "Tên danh mục blog bị trùng");
 			throw MyExceptionHelper.throwRuntimeCustomException(error);
