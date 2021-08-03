@@ -148,11 +148,13 @@ public class BlogServiceImpl implements BlogService {
 
 		String image = blog.getImage();
 
+		blogRepository.deleteById(id);
+		
 		if (image != null) {
-			String publicId = FileUtils.getPuclidId(blog.getImage());
+			String publicId = FileUtils.getPuclidId(image);
 			cloudinaryService.deleteImage(publicId);
 		}
 
-		blogRepository.deleteById(id);
+		
 	}
 }

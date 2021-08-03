@@ -80,6 +80,7 @@
   - body: {name: String, description: String, content: String, categoryId: Interger}.	
 - `[DELETE] /admin/blogs/:id`: xóa blog.
 - `[PUT] /admin/blogs/:id/image`: cập nhật ảnh cho blog.
+  - body: image: File.
 
 ### Blog Category
 - `[GET] /blog-categories`: lấy danh sách danh mục.
@@ -88,4 +89,14 @@
 - `[PUT] /admin/blogs/categories/:id`: cập nhật danh mục.
   - body: {name: String}.
 - `[DELETE] /admin/blogs/categories/:id`: xóa danh mục.
+
+### Book
+- `[GET] /books`: lấy danh sách books.
+- `[POST] /admin/exams/books`: thêm sách.
+  - body: {name: String}.
+- `[PUT] /admin/exams/books/:id`: cập nhật sách.
+  - body: {name: String}.
+- `[DELETE] /admin/exams/books/:id`: xóa sách.
+- `[PUT] /admin/exams/books/:id/image`: cập nhật ảnh cho sách.
+  - body: image: File.
 
