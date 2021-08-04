@@ -1,6 +1,5 @@
 package webtienganh.service.impl;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import com.cloudinary.utils.ObjectUtils;
 
 import webtienganh.exception.MyExceptionHelper;
 import webtienganh.service.CloudinaryService;
-import webtienganh.utils.FileUtils;
 import webtienganh.utils.MyConstant;
 
 @Service

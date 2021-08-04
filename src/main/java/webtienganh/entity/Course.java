@@ -1,7 +1,9 @@
 package webtienganh.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -37,11 +39,11 @@ public class Course {
 	@JoinColumn(name = "topic_id", referencedColumnName = "id", foreignKey = @ForeignKey(name="fk_course_topic"))
 	private Topic topic;
 	
-	@OneToMany(mappedBy = "course")
-	private List<CourseWord> words;
+	@OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
+	private List<CourseWord> words = new ArrayList<>();
 	
 	@OneToMany
-	private List<CourseSubscribe> users;
+	private List<CourseSubscribe> users = new ArrayList<>();
 
 	public Course(Integer id) {
 		super();
@@ -56,7 +58,5 @@ public class Course {
 		this.description = description;
 		this.topic = topic;
 	}
-	
-	
-	
+		
 }

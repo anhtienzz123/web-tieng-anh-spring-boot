@@ -5,19 +5,19 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import webtienganh.repository.BlogCategoryRepository;
+import webtienganh.repository.TopicRepository;
 
-public class CategoryIdExistsValidator implements ConstraintValidator<CategoryIdExists, Integer> {
+public class TopicIdExistsValidator implements ConstraintValidator<TopicIdExists, Integer> {
 
 	@Autowired
-	private BlogCategoryRepository blogCategoryRepository;
+	private TopicRepository topicRepository;
 
 	@Override
 	public boolean isValid(Integer value, ConstraintValidatorContext context) {
 
-		if(value == null || value <=0 )
+		if(value == null || value <=0)
 			return false;
 		
-		return blogCategoryRepository.existsById(value);
+		return topicRepository.existsById(value);
 	}
 }

@@ -10,6 +10,8 @@ import webtienganh.dto.CourseSummaryDTO;
 import webtienganh.dto.CourseDTO;
 import webtienganh.dto.WordDTO;
 import webtienganh.entity.Course;
+import webtienganh.entity.Topic;
+import webtienganh.utils.CommonFuc;
 
 @Component
 public class CourseConverter {
@@ -20,12 +22,14 @@ public class CourseConverter {
 	public CourseSummaryDTO toCourseInfoRequest(Course course) {
 
 		CourseSummaryDTO result = new CourseSummaryDTO();
+		result.setId(course.getId());
 		result.setName(course.getName());
 		result.setSlug(course.getSlug());
 		result.setImage(course.getImage());
 		result.setDescription(course.getDescription());
 		result.setWordNumber(course.getWords().size());
 		result.setPersonNumber(course.getUsers().size());
+		result.setTopicId(course.getTopic().getId());
 
 		return result;
 	}
@@ -33,6 +37,7 @@ public class CourseConverter {
 	public CourseDTO toCourseRequest(Course course) {
 
 		CourseDTO result = new CourseDTO();
+		result.setId(course.getId());
 		result.setName(course.getName());
 		result.setSlug(course.getSlug());
 		result.setImage(course.getImage());
@@ -49,6 +54,21 @@ public class CourseConverter {
 		result.setWords(wordDTOs);
 
 		return result;
+	}
+	
+	public Course toCourse(CourseSummaryDTO courseSummaryDTO) {
+		
+		Course courseResult = new Course();
+		courseResult.setId(courseSummaryDTO.getId());
+		
+		String name = courseSummaryDTO.getName();
+		courseResult.setName(name);
+		courseResult.setSlug(CommonFuc.toSlug(name));
+		
+		courseResult.setDescription(courseSummaryDTO.getDescription());
+		courseResult.setTopic(new Topic(courseSummaryDTO.getTopicId()));
+		
+		return courseResult;
 	}
 
 }
