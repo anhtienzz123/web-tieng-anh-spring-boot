@@ -115,3 +115,21 @@
 - `[PUT] /admin/courses/topics/:id`: cập nhật topic.
   - body: {name: String}.
 - `[DELETE] /admin/courses/topics/:id`: xóa topic.
+
+### Word
+- `[GET] /admin/courses/words`: lấy danh sách word.
+  - params:
+  	- name: String (mặc định là "").
+  	- page: int (mặc định là 0).
+  	- size: int (mặc định là 10).
+- `[POST] /admin/courses/words`: thêm word.
+  - body: {name: String, mean: String, type: String, pronounce: String, definition: String, example: String}.
+- `[PUT] /admin/courses/words/:id`: cập nhật word.
+  - body: {name: String, mean: String, type: String, pronounce: String, definition: String, example: String}.
+- `[DELETE] /admin/courses/words/:id`: xóa word.
+- `[PUT] /admin/courses/words/:id/image`: cập nhật ảnh.
+  - body: image: File.
+- `[PUT] /admin/courses/words/:id/sound`: cập nhật âm thanh.
+  - body: sound: File.
+
+

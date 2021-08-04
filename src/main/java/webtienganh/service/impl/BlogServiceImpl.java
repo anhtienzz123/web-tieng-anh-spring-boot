@@ -126,10 +126,10 @@ public class BlogServiceImpl implements BlogService {
 		if (blog.getImage() != null) {
 
 			String publicId = FileUtils.getPuclidId(blog.getImage());
-			cloudinaryService.deleteImage(publicId);
+			cloudinaryService.deleteFile(publicId, "");
 		}
 
-		String blogImage = cloudinaryService.uploadImage(image);
+		String blogImage = cloudinaryService.uploadFile(image, "");
 		blog.setImage(blogImage);
 
 		blogRepository.save(blog);
@@ -152,7 +152,7 @@ public class BlogServiceImpl implements BlogService {
 		
 		if (image != null) {
 			String publicId = FileUtils.getPuclidId(image);
-			cloudinaryService.deleteImage(publicId);
+			cloudinaryService.deleteFile(publicId, "");
 		}
 
 		

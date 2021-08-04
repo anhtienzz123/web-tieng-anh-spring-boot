@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import webtienganh.dto.TopicDTO;
+import webtienganh.exception.MyExceptionHelper;
 import webtienganh.service.TopicService;
+import webtienganh.utils.MyConstant;
 import webtienganh.utils.RestConstant;
 
 @RestController
@@ -37,6 +39,9 @@ public class TopicAdminController {
 	@PutMapping(value = "/{id}", consumes = RestConstant.CONSUMES_JSON)
 	public TopicDTO updateTopic(@PathVariable("id") Integer id, @Valid @RequestBody TopicDTO topicDTO) {
 
+		if(id <= 0)
+			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.TOPIC);
+		
 		topicDTO.setId(id);
 		return topicService.save(topicDTO);
 	}

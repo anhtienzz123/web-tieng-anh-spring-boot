@@ -27,6 +27,7 @@ public class WordConverter {
 	public Word toWord(WordDTO wordDTO) {
 
 		Word result = new Word();
+		result.setId(wordDTO.getId());
 		result.setName(wordDTO.getName());
 		result.setMean(wordDTO.getMean());
 		result.setType(wordDTO.getType());

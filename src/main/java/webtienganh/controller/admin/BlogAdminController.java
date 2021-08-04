@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import webtienganh.dto.BlogDTO;
+import webtienganh.exception.MyExceptionHelper;
 import webtienganh.service.BlogService;
+import webtienganh.utils.MyConstant;
 import webtienganh.utils.RestConstant;
 
 @RestController
@@ -47,12 +48,15 @@ public class BlogAdminController {
 	@PutMapping(value = "/{id}", consumes = RestConstant.CONSUMES_JSON)
 	public BlogDTO updateBlog(@PathVariable("id") Integer id, @Valid @RequestBody BlogDTO blogDTO) {
 
+		if(id <= 0)
+			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.BLOG);
+		
 		blogDTO.setId(id);
 
 		return blogService.save(blogDTO);
 	}
 
-	@PutMapping(value = "/{id}/image", produces = { MediaType.IMAGE_PNG_VALUE, "application/json" })
+	@PutMapping(value = "/{id}/image")
 	public String updateImage(@PathVariable("id") Integer id, @RequestParam("image") MultipartFile image) {
 
 		String fileName = blogService.uploadImage(id, image);

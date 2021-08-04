@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import webtienganh.dto.VideoCategoryDTO;
+import webtienganh.exception.MyExceptionHelper;
 import webtienganh.service.VideoCategoryService;
+import webtienganh.utils.MyConstant;
 import webtienganh.utils.RestConstant;
 
 @RestController
@@ -38,6 +40,9 @@ public class VideoCategoryAdminController {
 	public VideoCategoryDTO updateCategory(@PathVariable("id") Integer id,
 			@Valid @RequestBody VideoCategoryDTO videoCategoryDTO) {
 
+		if(id <= 0)
+			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.VIDEO_CATEGORY);
+		
 		videoCategoryDTO.setId(id);
 		return videoCategoryService.save(videoCategoryDTO);
 	}
