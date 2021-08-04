@@ -32,7 +32,7 @@ public class CloudinaryServiceImpl implements CloudinaryService {
 
 		try {
 
-			File uploadedFile = FileUtils.convertMultiPartToFile(file);
+			byte[] uploadedFile = file.getBytes();
 			Map<?, ?> uploadResult;
 
 			if (resource.equals(MyConstant.VIDEO))
