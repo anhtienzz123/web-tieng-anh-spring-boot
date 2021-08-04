@@ -123,9 +123,10 @@ public class BlogServiceImpl implements BlogService {
 		Blog blog = blogRepository.findById(id)
 				.orElseThrow(() -> MyExceptionHelper.throwResourceNotFoundException(MyConstant.BLOG));
 
-		if (blog.getImage() != null) {
+		String imageString = blog.getImage();
+		if (imageString != null) {
 
-			String publicId = FileUtils.getPuclidId(blog.getImage());
+			String publicId = FileUtils.getPuclidId(imageString);
 			cloudinaryService.deleteFile(publicId, "");
 		}
 

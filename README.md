@@ -132,4 +132,14 @@
 - `[PUT] /admin/courses/words/:id/sound`: cập nhật âm thanh.
   - body: sound: File.
 
-
+### Course
+- `[POST] /admin/courses`: thêm course.
+  - body: {name: String, description: String, topicId: Integer}.
+- `[PUT] /admin/courses/:id`: cập nhật course.
+  - body: {name: String, description: String, topicId: Integer}.
+- `[DELETE] /admin/courses/:id`: xóa course.
+- `[PUT] /admin/courses/:id/image`: cập nhật ảnh.
+  - body: image: File.
+- `[POST] /admin/courses/:id/course-word`: thêm word vào course.
+  - body: {wordId: Integer}.
+- `[DELETE] /admin/courses/:id/course-word/:wordId`: xóa word ra khỏi course.
