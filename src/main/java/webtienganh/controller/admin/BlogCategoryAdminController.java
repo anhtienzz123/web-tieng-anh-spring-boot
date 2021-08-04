@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import webtienganh.dto.BlogCategoryDTO;
+import webtienganh.exception.MyExceptionHelper;
 import webtienganh.service.BlogCategoryService;
+import webtienganh.utils.MyConstant;
 import webtienganh.utils.RestConstant;
 
 @RestController
@@ -38,6 +40,9 @@ public class BlogCategoryAdminController {
 	public BlogCategoryDTO updateCategory(@PathVariable("id") Integer id,
 			@Valid @RequestBody BlogCategoryDTO blogCategoryDTO) {
 
+		if(id <= 0)
+			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.BLOG_CATEGORY);
+		
 		blogCategoryDTO.setId(id);
 		return blogCategoryService.save(blogCategoryDTO);
 	}

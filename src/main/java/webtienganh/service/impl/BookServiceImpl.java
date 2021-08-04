@@ -82,7 +82,7 @@ public class BookServiceImpl implements BookService {
 		if (image != null) {
 
 			String publicId = FileUtils.getPuclidId(image);
-			cloudinaryService.deleteImage(publicId);
+			cloudinaryService.deleteFile(publicId, "");
 		}
 
 	}
@@ -99,10 +99,10 @@ public class BookServiceImpl implements BookService {
 		if (imageString != null) {
 
 			String publicId = FileUtils.getPuclidId(imageString);
-			cloudinaryService.deleteImage(publicId);
+			cloudinaryService.deleteFile(publicId, "");
 		}
 
-		String blogImage = cloudinaryService.uploadImage(image);
+		String blogImage = cloudinaryService.uploadFile(image, "");
 		book.setImage(blogImage);
 
 		bookRepository.save(book);

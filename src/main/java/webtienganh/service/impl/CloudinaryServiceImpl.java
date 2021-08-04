@@ -13,8 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
+import webtienganh.exception.MyExceptionHelper;
 import webtienganh.service.CloudinaryService;
 import webtienganh.utils.FileUtils;
+import webtienganh.utils.MyConstant;
 
 @Service
 @Transactional
@@ -23,14 +25,24 @@ public class CloudinaryServiceImpl implements CloudinaryService {
 	@Autowired
 	private Cloudinary cloudinaryConfig;
 
-	public String uploadImage(MultipartFile image) {
-		try {
-			File uploadedFile = FileUtils.convertMultiPartToFile(image);
-			Map<?, ?> uploadResult = cloudinaryConfig.uploader().upload(uploadedFile, ObjectUtils.emptyMap());
+	public String uploadFile(MultipartFile file, String resource) {
 
-			String url = uploadResult.get("url").toString();
-			
-			return url;
+		if (file == null || resource == null)
+			throw MyExceptionHelper.throwIllegalArgumentException();
+
+		try {
+
+			File uploadedFile = FileUtils.convertMultiPartToFile(file);
+			Map<?, ?> uploadResult;
+
+			if (resource.equals(MyConstant.VIDEO))
+				uploadResult = cloudinaryConfig.uploader().upload(uploadedFile,
+						ObjectUtils.asMap("resource_type", "video"));
+			else
+				uploadResult = cloudinaryConfig.uploader().upload(uploadedFile, ObjectUtils.emptyMap());
+
+			return uploadResult.get("url").toString();
+
 		} catch (Exception e) {
 
 			throw new RuntimeException(e);
@@ -38,13 +50,21 @@ public class CloudinaryServiceImpl implements CloudinaryService {
 	}
 
 	@Override
-	public void deleteImage(String publicId) {
+	public void deleteFile(String publicId, String resource) {
+
+		if (publicId == null || resource == null)
+			throw MyExceptionHelper.throwIllegalArgumentException();
+
 		try {
 
-			cloudinaryConfig.uploader().destroy(publicId, ObjectUtils.emptyMap());
+			if (resource.equals(MyConstant.VIDEO))
+				cloudinaryConfig.uploader().destroy(publicId, ObjectUtils.asMap("resource_type", "video"));
+			else
+				cloudinaryConfig.uploader().destroy(publicId, ObjectUtils.emptyMap());
 
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
+
 }
