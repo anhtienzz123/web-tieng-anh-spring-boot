@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,58 +16,50 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import webtienganh.dto.BlogDTO;
+import webtienganh.dto.BookDTO;
 import webtienganh.exception.MyExceptionHelper;
-import webtienganh.service.BlogService;
+import webtienganh.service.BookService;
 import webtienganh.utils.MyConstant;
 import webtienganh.utils.RestConstant;
 
 @RestController
-@RequestMapping("/admin/blogs")
+@RequestMapping("/admin/exams/books")
 @CrossOrigin
-public class BlogAdminController {
+public class BookAdminController {
 
 	@Autowired
-	private BlogService blogService;
-
-	@GetMapping("/{id}")
-	public BlogDTO getOne(@PathVariable("id") Integer id) {
-
-		return blogService.getOne(id);
-	}
-
+	private BookService bookService;
+	
 	@PostMapping(value = "", consumes = RestConstant.CONSUMES_JSON)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public BlogDTO addBlog(@Valid @RequestBody BlogDTO blogDTO) {
+	public BookDTO addBook(@Valid @RequestBody BookDTO bookDTO) {
 
-		blogDTO.setId(0);
-		return blogService.save(blogDTO);
+		bookDTO.setId(0);
+		return bookService.save(bookDTO);
 	}
 
 	@PutMapping(value = "/{id}", consumes = RestConstant.CONSUMES_JSON)
-	public BlogDTO updateBlog(@PathVariable("id") Integer id, @Valid @RequestBody BlogDTO blogDTO) {
+	public BookDTO updateBook(@PathVariable("id") Integer id,
+			@Valid @RequestBody BookDTO bookDTO) {
 
 		if(id <= 0)
-			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.BLOG);
+			throw MyExceptionHelper.throwResourceNotFoundException(MyConstant.BOOK);
 		
-		blogDTO.setId(id);
-
-		return blogService.save(blogDTO);
+		bookDTO.setId(id);
+		return bookService.save(bookDTO);
 	}
 
 	@PutMapping(value = "/{id}/image")
 	public String updateImage(@PathVariable("id") Integer id, @RequestParam("image") MultipartFile image) {
 
-		String fileName = blogService.uploadImage(id, image);
-
+		String fileName = bookService.uploadImage(id, image);
 		return fileName;
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void deleteBlog(@PathVariable("id") Integer id) {
+	public void deleteBook(@PathVariable("id") Integer id) {
 
-		blogService.delete(id);
+		bookService.delete(id);
 	}
-
 }

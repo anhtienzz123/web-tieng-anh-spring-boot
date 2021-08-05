@@ -28,4 +28,11 @@ public class BlogCategory {
 	
 		this.id = id;
 	}
+
+	public BlogCategory(Integer id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	
 }
