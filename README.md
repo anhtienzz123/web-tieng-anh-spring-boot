@@ -16,33 +16,33 @@
 - `[GET] /course-words`: lấy từ vựng theo slug khóa học
   - params: courseSlug: String, page: int (default: 0) , size: int (default: 30)
 
-### Word Note
-- `[GET] /user/word-note-categories`: lấy danh sách các danh mục ghi chú.
-- `[POST] /user/word-note-categories`: tạo danh mục ghi chú.
+### Word Note `/user/word-note-categories`
+- `[GET]`: lấy danh sách các danh mục ghi chú.
+- `[POST]`: tạo danh mục ghi chú.
   - body: {name: String}.
-- `[PUT] /user/word-note-categories/:id`: Đổi tên danh mục ghi chú.
+- `[PUT] /:id`: Đổi tên danh mục ghi chú.
   - body: {name: String}.
-- `[DELETE] /user/word-note-categories/:id`: Xóa danh mục ghi chú.
-- `[POST] /user/word-note-categories/add-word`: Thêm từ vào danh mục ghi chú.
+- `[DELETE] /:id`: Xóa danh mục ghi chú.
+- `[POST] /add-word`: Thêm từ vào danh mục ghi chú.
   - body: {wordNoteCategoryId: int, wordId: int}
-- `[GET] /user/word-note-categories/:id`: lấy chi tiết danh mục ghi chú.
-- `[GET] /user/word-note-categories/review/:id`: ôn tập từ vựng.
+- `[GET] /:id`: lấy chi tiết danh mục ghi chú.
+- `[GET] /review/:id`: ôn tập từ vựng.
   - params:
   	- type: int (mặc định là 0)
   		- 0: 1 câu hỏi và 4 từ trắc nghiệm.
   		- 1: gợi ý và điền từ.
   	- ids: List Integer: Danh sách ids đã ôn tập rồi.
-- `[DELETE] /user/word-note-categories/:id/words/:wordId`: xóa từ ra khỏi ghi chú.
+- `[DELETE] /:id/words/:wordId`: xóa từ ra khỏi ghi chú.
 
 ### Book
 - `[GET] /books`: lấy tên sách và đề thi của sách.
 
-### Exam
-- `[GET] /exams/:slug`: lấy câu hỏi của bài thi.
-- `[POST] /exams/:slug/result`: kiểm tra kết quả bài thi.
+### Exam `/exams`
+- `[GET] /:slug`: lấy câu hỏi của bài thi.
+- `[POST] /:slug/result`: kiểm tra kết quả bài thi.
   - body:  Map<Integer, String> answers.
-- `[GET] /exams`: lấy tất cả tên và slug của bài thi.
-- `[GET] /exams/:slug/parts`: lấy câu hỏi của part theo đề thi.
+- `[GET]`: lấy tất cả tên và slug của bài thi.
+- `[GET] /:slug/parts`: lấy câu hỏi của part theo đề thi.
   - params: type: int (từ 1 - 7).
 
 ### Video
@@ -67,107 +67,103 @@
   	- size: int (mặc định là 12).
 - `[GET] /blogs/:slug`: lấy chi tiết blog theo slug.
 
-### Me
-- `[GET] /user/me/role`: lấy vai trò của user.
+### Me `/user/me`
+- `[GET] /role`: lấy vai trò của user.
 
 ## Api Admin
 
-### Blog
-- `[GET] /admin/blogs/:id`: lấy chi tiết blog.
-- `[POST] /admin/blogs`: thêm blog.
+### Blog `/admin/blogs`
+- `[GET] /:id`: lấy chi tiết blog.
+- `[POST]`: thêm blog.
   - body: {name: String, description: String, content: String, categoryId: Interger}.
-- `[PUT] /admin/blogs/:id`: cập nhật blog.
+- `[PUT] /:id`: cập nhật blog.
   - body: {name: String, description: String, content: String, categoryId: Interger}.	
-- `[DELETE] /admin/blogs/:id`: xóa blog.
-- `[PUT] /admin/blogs/:id/image`: cập nhật ảnh cho blog.
+- `[DELETE] /:id`: xóa blog.
+- `[PUT] /:id/image`: cập nhật ảnh cho blog.
   - body: image: File.
 
-### Blog Category
-- `[GET] /blog-categories`: lấy danh sách danh mục.
-- `[POST] /admin/blogs/categories`: thêm danh mục.
+### Blog Category `/admin/blogs/categories`
+- `[POST]`: thêm danh mục.
   - body: {name: String}.
-- `[PUT] /admin/blogs/categories/:id`: cập nhật danh mục.
+- `[PUT] /:id`: cập nhật danh mục.
   - body: {name: String}.
-- `[DELETE] /admin/blogs/categories/:id`: xóa danh mục.
+- `[DELETE] /:id`: xóa danh mục.
 
-### Book
-- `[GET] /books`: lấy danh sách books.
-- `[POST] /admin/exams/books`: thêm sách.
+### Book `/admin/exams/books`
+- `[POST]`: thêm sách.
   - body: {name: String}.
-- `[PUT] /admin/exams/books/:id`: cập nhật sách.
+- `[PUT] /:id`: cập nhật sách.
   - body: {name: String}.
-- `[DELETE] /admin/exams/books/:id`: xóa sách.
-- `[PUT] /admin/exams/books/:id/image`: cập nhật ảnh cho sách.
+- `[DELETE] /:id`: xóa sách.
+- `[PUT] /:id/image`: cập nhật ảnh cho sách.
   - body: image: File.
 
-### Video Category
-- `[GET] /video-categories`: lấy danh sách danh mục.
-- `[POST] /admin/videos/categories`: thêm danh mục.
+### Video Category `/admin/videos/categories`
+- `[POST]`: thêm danh mục.
   - body: {name: String}.
-- `[PUT] /admin/videos/categories/:id`: cập nhật danh mục.
+- `[PUT] /:id`: cập nhật danh mục.
   - body: {name: String}.
-- `[DELETE] /admin/videos/categories/:id`: xóa danh mục.
+- `[DELETE] /:id`: xóa danh mục.
 
-### Topic
-- `[GET] /courses/topics`: lấy danh sách topic.
-- `[POST] /admin/courses/topics`: thêm topic.
+### Topic `/admin/courses/topics`
+- `[POST]`: thêm topic.
   - body: {name: String}.
-- `[PUT] /admin/courses/topics/:id`: cập nhật topic.
+- `[PUT] /:id`: cập nhật topic.
   - body: {name: String}.
-- `[DELETE] /admin/courses/topics/:id`: xóa topic.
+- `[DELETE] /:id`: xóa topic.
 
-### Word
-- `[GET] /admin/courses/words`: lấy danh sách word.
+### Word `/admin/courses/words`
+- `[GET]`: lấy danh sách word.
   - params:
   	- name: String (mặc định là "").
   	- page: int (mặc định là 0).
   	- size: int (mặc định là 10).
-- `[POST] /admin/courses/words`: thêm word.
+- `[POST]`: thêm word.
   - body: {name: String, mean: String, type: String, pronounce: String, definition: String, example: String}.
-- `[PUT] /admin/courses/words/:id`: cập nhật word.
+- `[PUT] /:id`: cập nhật word.
   - body: {name: String, mean: String, type: String, pronounce: String, definition: String, example: String}.
-- `[DELETE] /admin/courses/words/:id`: xóa word.
-- `[PUT] /admin/courses/words/:id/image`: cập nhật ảnh.
+- `[DELETE] /:id`: xóa word.
+- `[PUT] /:id/image`: cập nhật ảnh.
   - body: image: File.
-- `[PUT] /admin/courses/words/:id/sound`: cập nhật âm thanh.
+- `[PUT] /:id/sound`: cập nhật âm thanh.
   - body: sound: File.
 
-### Course
-- `[POST] /admin/courses`: thêm course.
+### Course `/admin/course`
+- `[POST]`: thêm course.
   - body: {name: String, description: String, topicId: Integer}.
-- `[PUT] /admin/courses/:id`: cập nhật course.
+- `[PUT] /:id`: cập nhật course.
   - body: {name: String, description: String, topicId: Integer}.
-- `[DELETE] /admin/courses/:id`: xóa course.
-- `[PUT] /admin/courses/:id/image`: cập nhật ảnh.
+- `[DELETE] /:id`: xóa course.
+- `[PUT] /:id/image`: cập nhật ảnh.
   - body: image: File.
-- `[POST] /admin/courses/:id/course-word`: thêm word vào course.
+- `[POST] /:id/course-word`: thêm word vào course.
   - body: {wordId: Integer}.
-- `[DELETE] /admin/courses/:id/course-word/:wordId`: xóa word ra khỏi course.
+- `[DELETE] /:id/course-word/:wordId`: xóa word ra khỏi course.
 
-### Video
-- `[POST] /admin/videos`: thêm video.
+### Video `/admin/videos`
+- `[POST]`: thêm video.
   - body: {name: String, duration: int, level: int (1-7), description: String, categoryId: Integer}.
-- `[PUT] /admin/videos/:id`: cập nhật video.
+- `[PUT] /:id`: cập nhật video.
   - body: {name: String, duration: int, level: int (1-7), description: String, categoryId: Integer}.
-- `[DELETE] /admin/videos/:id`: xóa video.
-- `[PUT] /admin/videos/:id/image`: cập nhật ảnh.
+- `[DELETE] /:id`: xóa video.
+- `[PUT] /:id/image`: cập nhật ảnh.
   - body: image: File.
-- `[PUT] /admin/videos/:id/video`: cập nhật video.
+- `[PUT] /:id/video`: cập nhật video.
   - body: video: File.
 
-### VideoWord
-- `[POST] /admin/videos/words`: thêm word.
+### VideoWord `/admin/videos/words`
+- `[POST]`: thêm word.
   - body: {name: String, origin: String, frequency: int, videoId: Integer}.
-- `[PUT] /admin/videos/words/:id`: cập nhật word.
+- `[PUT] /:id`: cập nhật word.
   - body: {name: String, origin: String, frequency: int, videoId: Integer}.
-- `[DELETE] /admin/videos/words/:id`: xóa word.
-- `[PUT] /admin/videos/words/:id/sound`: cập nhật sound.
+- `[DELETE] /:id`: xóa word.
+- `[PUT] /:id/sound`: cập nhật sound.
   - body: sound: File.
 
-### Subtitle
-- `[POST] /admin/videos/subtitles`: thêm sub.
+### Subtitle `/admin/videos/subtitles`
+- `[POST]`: thêm sub.
   - body: {start: long, end: long, content: String, videoId: Integer}.
-- `[PUT] /admin/videos/subtitles/:id`: cập nhật sub.
+- `[PUT] /:id`: cập nhật sub.
   - body: {start: long, end: long, content: String}.
-- `[DELETE] /admin/videos/subtitles/:videoId`: xóa sub cuối cùng của video.
+- `[DELETE] /:videoId`: xóa sub cuối cùng của video.
 
