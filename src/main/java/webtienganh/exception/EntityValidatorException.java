@@ -1,6 +1,6 @@
 package webtienganh.exception;
 
-import org.springframework.validation.BindingResult;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,14 +11,14 @@ public class EntityValidatorException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	private BindingResult bindingResult;
+	private Map<String, String> errors;
 
 	public EntityValidatorException() {
 		super();
 	}
 
-	public EntityValidatorException(BindingResult bindingResult) {
+	public EntityValidatorException(Map<String, String> errors) {
 		super();
-		this.bindingResult = bindingResult;
+		this.errors = errors;
 	}
 }

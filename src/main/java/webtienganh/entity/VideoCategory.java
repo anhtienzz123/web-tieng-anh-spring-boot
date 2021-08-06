@@ -23,11 +23,16 @@ public class VideoCategory {
 
 	private String name;
 	private String slug;
-	
+
 	public VideoCategory(Integer id) {
 		super();
 		this.id = id;
 	}
-	
-	
+
+	public VideoCategory(Integer id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
 }

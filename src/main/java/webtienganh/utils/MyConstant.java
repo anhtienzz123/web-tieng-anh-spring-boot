@@ -14,5 +14,6 @@ public class MyConstant {
 	public static final String VIDEO_CATEGORY = "Video Category";
 	public static final String TOPIC = "Topic";
 	public static final String COURSE_WORD = "CourseWord";
-	
+	public static final String VIDEO_WORD = "VideoWord";
+	public static final String SUBTITLE = "Subtitle";
 }

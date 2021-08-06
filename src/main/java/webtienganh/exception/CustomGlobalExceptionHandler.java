@@ -1,9 +1,7 @@
 package webtienganh.exception;
 
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,11 +29,11 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		return new ResponseEntity<>(body, HttpStatus.OK);
 
 	}
-	
+
 	@ExceptionHandler(value = { RuntimeCustomException.class })
 	@ResponseStatus(code = HttpStatus.OK)
 	protected ErrorDTO handleRuntimeCustomException(RuntimeCustomException e) {
-		
+
 		ErrorDTO result = ErrorDTO.builder().status(400).error(e.getError()).build();
 
 		return result;
@@ -75,10 +73,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 	@ResponseStatus(code = HttpStatus.OK)
 	protected ErrorDTO handleEntityValidatorException(EntityValidatorException ex) {
 
-		List<String> errors = ex.getBindingResult().getFieldErrors().stream().map(x -> x.getDefaultMessage())
-				.collect(Collectors.toList());
-
-		ErrorDTO result = ErrorDTO.builder().status(400).error(errors).build();
+		ErrorDTO result = ErrorDTO.builder().status(400).error(ex.getErrors()).build();
 		return result;
 	}
 
@@ -90,5 +85,5 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		e.printStackTrace();
 		return result;
 	}
-	
+
 }

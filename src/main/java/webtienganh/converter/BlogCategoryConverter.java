@@ -12,6 +12,7 @@ public class BlogCategoryConverter {
 	public BlogCategoryDTO toBlogCategoryDTO(BlogCategory blogCategory) {
 
 		BlogCategoryDTO result = new BlogCategoryDTO();
+		
 		result.setId(blogCategory.getId());
 		result.setName(blogCategory.getName());
 		result.setSlug(blogCategory.getSlug());
@@ -22,8 +23,9 @@ public class BlogCategoryConverter {
 	public BlogCategory toBlogCategory(BlogCategoryDTO blogCategoryDTO) {
 
 		BlogCategory result = new BlogCategory();
+		
 		result.setId(blogCategoryDTO.getId());
-
+		
 		String name = blogCategoryDTO.getName();
 		result.setName(name);
 		result.setSlug(CommonFuc.toSlug(name));

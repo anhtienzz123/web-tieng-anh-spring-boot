@@ -247,7 +247,7 @@ public class CrawlController {
 
 		System.out.println("=== video: " + videoDTO.getName());
 
-		Video video = videoConverter.toVideo(videoDTO);
+		Video video = videoConverter.toVideoCrawl(videoDTO);
 		Integer id;
 
 		id = videoRepository.save(video).getId();

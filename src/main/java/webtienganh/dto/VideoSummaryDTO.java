@@ -1,5 +1,13 @@
 package webtienganh.dto;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +21,17 @@ import webtienganh.utils.CommonFuc;
 public class VideoSummaryDTO {
 
 	private Integer id;
+	@NotBlank
+	@Size(max = 200)
 	private String name;
+	@JsonProperty(access = Access.READ_ONLY)
 	private String slug;
+	@JsonProperty(access = Access.READ_ONLY)
 	private String image;
-	private long duration;
+	@Min(value = 0)
+	private Long duration;
+	@Min(value = 1)
+	@Max(value = 7)
 	private int level;
 
 	public String getDurationString() {

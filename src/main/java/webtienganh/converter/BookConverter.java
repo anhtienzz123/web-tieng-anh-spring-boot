@@ -30,12 +30,9 @@ public class BookConverter {
 	
 	public Book toBook(BookDTO bookDTO) {
 		
-		Book book = new Book();
-		
 		Integer id = bookDTO.getId();
 		
-		if(id != 0)
-			book = bookRepository.findById(id).get();
+		Book book = bookRepository.findById(id).orElse(new Book(0));
 		
 		book.setId(bookDTO.getId());
 		book.setName(bookDTO.getName());
