@@ -11,6 +11,7 @@ import webtienganh.dto.CourseDTO;
 import webtienganh.dto.WordDTO;
 import webtienganh.entity.Course;
 import webtienganh.entity.Topic;
+import webtienganh.repository.CourseRepository;
 import webtienganh.utils.CommonFuc;
 
 @Component
@@ -18,6 +19,9 @@ public class CourseConverter {
 
 	@Autowired
 	private WordConverter wordConverter;
+
+	@Autowired
+	private CourseRepository courseRepository;
 
 	public CourseSummaryDTO toCourseInfoRequest(Course course) {
 
@@ -55,19 +59,20 @@ public class CourseConverter {
 
 		return result;
 	}
-	
+
 	public Course toCourse(CourseSummaryDTO courseSummaryDTO) {
-		
-		Course courseResult = new Course();
-		courseResult.setId(courseSummaryDTO.getId());
-		
+
+		Integer id = courseSummaryDTO.getId();
+
+		Course courseResult = courseRepository.findById(id).orElse(new Course(0));
+
 		String name = courseSummaryDTO.getName();
 		courseResult.setName(name);
 		courseResult.setSlug(CommonFuc.toSlug(name));
-		
+
 		courseResult.setDescription(courseSummaryDTO.getDescription());
 		courseResult.setTopic(new Topic(courseSummaryDTO.getTopicId()));
-		
+
 		return courseResult;
 	}
 

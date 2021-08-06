@@ -1,5 +1,6 @@
 package webtienganh.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -38,12 +39,12 @@ public class Video {
 	private String url;
 	private int level;
 
-	@OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
-	private List<Subtitle> subtitles;
+	@OneToMany(mappedBy = "video", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
+	private List<Subtitle> subtitles = new ArrayList<>();
 
-	@OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
-	private List<VideoWord> videoWords;
-	
+	@OneToMany(mappedBy = "video", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
+	private List<VideoWord> videoWords = new ArrayList<>();
+
 	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_video_cateogory"))
 	private VideoCategory category;
@@ -51,6 +52,5 @@ public class Video {
 	public Video(Integer id) {
 		this.id = id;
 	}
-	
-	
+
 }

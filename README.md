@@ -143,3 +143,31 @@
 - `[POST] /admin/courses/:id/course-word`: thêm word vào course.
   - body: {wordId: Integer}.
 - `[DELETE] /admin/courses/:id/course-word/:wordId`: xóa word ra khỏi course.
+
+### Video
+- `[POST] /admin/videos`: thêm video.
+  - body: {name: String, duration: int, level: int (1-7), description: String, categoryId: Integer}.
+- `[PUT] /admin/videos/:id`: cập nhật video.
+  - body: {name: String, duration: int, level: int (1-7), description: String, categoryId: Integer}.
+- `[DELETE] /admin/videos/:id`: xóa video.
+- `[PUT] /admin/videos/:id/image`: cập nhật ảnh.
+  - body: image: File.
+- `[PUT] /admin/videos/:id/video`: cập nhật video.
+  - body: video: File.
+
+### VideoWord
+- `[POST] /admin/videos/words`: thêm word.
+  - body: {name: String, origin: String, frequency: int, videoId: Integer}.
+- `[PUT] /admin/videos/words/:id`: cập nhật word.
+  - body: {name: String, origin: String, frequency: int, videoId: Integer}.
+- `[DELETE] /admin/videos/words/:id`: xóa word.
+- `[PUT] /admin/videos/words/:id/sound`: cập nhật sound.
+  - body: sound: File.
+
+### Subtitle
+- `[POST] /admin/videos/subtitles`: thêm sub.
+  - body: {start: long, end: long, content: String, videoId: Integer}.
+- `[PUT] /admin/videos/subtitles/:id`: cập nhật sub.
+  - body: {start: long, end: long, content: String}.
+- `[DELETE] /admin/videos/subtitles/:videoId`: xóa sub cuối cùng của video.
+

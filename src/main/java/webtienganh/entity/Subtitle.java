@@ -32,4 +32,9 @@ public class Subtitle {
 	@ManyToOne
 	@JoinColumn(name = "video_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_subtitle_video"))
 	private Video video;
+
+	public Subtitle(Integer id) {
+		
+		this.id = id;
+	}
 }

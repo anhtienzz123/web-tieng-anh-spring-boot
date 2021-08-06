@@ -14,6 +14,7 @@ import webtienganh.dto.VideoWordDTO;
 import webtienganh.entity.Subtitle;
 import webtienganh.entity.Video;
 import webtienganh.entity.VideoCategory;
+import webtienganh.repository.VideoRepository;
 import webtienganh.utils.CommonFuc;
 
 @Component
@@ -24,6 +25,9 @@ public class VideoConverter {
 
 	@Autowired
 	private VideoWordConverter videoWordConverter;
+	
+	@Autowired
+	private VideoRepository videoRepository;
 
 	public VideoSummaryDTO toVideoSummaryDTO(Video video) {
 
@@ -65,7 +69,7 @@ public class VideoConverter {
 		return result;
 	}
 
-	public Video toVideo(VideoDTO videoDTO) {
+	public Video toVideoCrawl(VideoDTO videoDTO) {
 
 		Video result = new Video();
 
@@ -83,11 +87,32 @@ public class VideoConverter {
 		result.setLevel(videoDTO.getLevel());
 
 		List<Subtitle> subtitles = videoDTO.getSubtitles().stream()
-				.map(subEle -> subtitleConverter.toSubtitle(subEle, result)).collect(Collectors.toList());
+				.map(subEle -> subtitleConverter.toSubtitleCrawl(subEle, result)).collect(Collectors.toList());
 		result.setSubtitles(subtitles);
 
 		result.setCategory(new VideoCategory(videoDTO.getCategoryId()));
 
 		return result;
 	}
+	
+	
+	public Video toVideo(VideoDTO videoDTO) {
+
+		Integer id = videoDTO.getId();
+		
+		Video result = videoRepository.findById(id).orElse(new Video(0));
+
+		String name = videoDTO.getName();
+		result.setName(name);
+		result.setSlug(CommonFuc.toSlug(name)+ RandomStringUtils.randomAlphanumeric(5));
+
+		result.setDescription(videoDTO.getDescription());
+		result.setDuration(videoDTO.getDuration());
+		result.setLevel(videoDTO.getLevel());
+
+		result.setCategory(new VideoCategory(videoDTO.getCategoryId(), videoDTO.getCategoryName()));
+
+		return result;
+	}
+	
 }

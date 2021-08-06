@@ -21,4 +21,6 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
 	boolean existsByName(String name);
 	
 	Optional<Video> findByName(String name);
+	
+	boolean existsByIdNotAndName(Integer id, String name);
 }
