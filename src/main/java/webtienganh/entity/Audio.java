@@ -1,6 +1,7 @@
 package webtienganh.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,12 +14,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import webtienganh.utils.AudioAuditListener;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@EntityListeners(AudioAuditListener.class)
 public class Audio {
 
 	@Id
@@ -31,5 +34,11 @@ public class Audio {
 	@OneToOne
 	@JoinColumn(name = "question_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_audio_question"))
 	private Question question;
-	
+
+	public Audio(String name, Question question) {
+		
+		this.name = name;
+		this.question = question;
+	}
+
 }

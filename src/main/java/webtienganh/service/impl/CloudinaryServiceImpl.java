@@ -50,9 +50,12 @@ public class CloudinaryServiceImpl implements CloudinaryService {
 	@Override
 	public void deleteFile(String publicId, String resource) {
 
-		if (publicId == null || resource == null)
+		if (publicId == null || resource == null )
 			throw MyExceptionHelper.throwIllegalArgumentException();
 
+		if(publicId.trim().length() == 0)
+			return;
+	
 		try {
 
 			if (resource.equals(MyConstant.VIDEO))

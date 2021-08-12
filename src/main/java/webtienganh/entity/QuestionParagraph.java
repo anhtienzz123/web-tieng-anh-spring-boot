@@ -19,12 +19,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class QuestionParagraph  {
+public class QuestionParagraph {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@OneToOne
 	@JoinColumn(name = "question_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_questionparagraph_question"))
 	private Question question;
@@ -32,4 +32,11 @@ public class QuestionParagraph  {
 	@ManyToOne
 	@JoinColumn(name = "paragraph_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_coursesubscribe_paragraph"))
 	private Paragraph paragraph;
+
+	public QuestionParagraph(Question question, Paragraph paragraph) {
+		super();
+		this.question = question;
+		this.paragraph = paragraph;
+	}
+
 }

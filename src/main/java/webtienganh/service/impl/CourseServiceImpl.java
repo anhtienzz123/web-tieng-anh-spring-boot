@@ -90,7 +90,7 @@ public class CourseServiceImpl implements CourseService {
 	public CourseSummaryDTO save(CourseSummaryDTO courseSummaryDTO) {
 
 		validate(courseSummaryDTO);
-
+		
 		Course course = courseRepository.save(courseConverter.toCourse(courseSummaryDTO));
 
 		return courseConverter.toCourseInfoRequest(course);

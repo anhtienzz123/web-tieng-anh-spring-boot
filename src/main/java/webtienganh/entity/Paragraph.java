@@ -2,7 +2,9 @@ package webtienganh.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,12 +14,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import webtienganh.utils.ParagraphAuditListener;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@EntityListeners(ParagraphAuditListener.class)
 public class Paragraph {
 
 	@Id
@@ -27,7 +31,7 @@ public class Paragraph {
 	private String image;
 	private String transcript;
 
-	@OneToMany(mappedBy = "paragraph")
+	@OneToMany(mappedBy = "paragraph", cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	private List<QuestionParagraph> questionParagraphs;
 
 	public Paragraph(Integer id) {
@@ -35,4 +39,8 @@ public class Paragraph {
 		this.id = id;
 	}
 
+	public int getNumberPart() {
+
+		return questionParagraphs.get(0).getQuestion().getType();
+	}
 }

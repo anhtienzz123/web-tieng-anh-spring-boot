@@ -1,5 +1,6 @@
 package webtienganh.converter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import webtienganh.dto.QuestionDTO;
@@ -7,14 +8,18 @@ import webtienganh.dto.QuestionResultDTO;
 import webtienganh.dto.QuestionSummaryDTO;
 import webtienganh.entity.Audio;
 import webtienganh.entity.Question;
+import webtienganh.repository.QuestionRepository;
 
 @Component
 public class QuestionConverter {
 
+	@Autowired
+	private QuestionRepository questionRepository;
+
 	public QuestionSummaryDTO toQuestionSummaryDTO(Question question) {
 
-		QuestionSummaryDTO result = new QuestionSummaryDTO();
-
+		var result = new QuestionSummaryDTO();
+		result.setId(question.getId());
 		result.setStt(question.getStt());
 		result.setContent(question.getContent());
 		result.setA(question.getA());
@@ -27,7 +32,8 @@ public class QuestionConverter {
 
 	public QuestionDTO toQuestionDTO(Question question) {
 
-		QuestionDTO result = new QuestionDTO();
+		var result = new QuestionDTO();
+		result.setId(question.getId());
 		result.setStt(question.getStt());
 		result.setContent(question.getContent());
 		result.setA(question.getA());
@@ -55,5 +61,24 @@ public class QuestionConverter {
 
 		return result;
 	}
-	
+
+	public Question toQuestion(QuestionDTO questionDTO) {
+
+		Question question = questionRepository.findById(questionDTO.getId()).get();
+
+		int type = question.getType();
+
+		if (type != 1)
+			question.setContent(questionDTO.getContent());
+
+		question.setA(questionDTO.getA());
+		question.setB(questionDTO.getB());
+		question.setC(questionDTO.getC());
+		question.setD(type == 2 ? null : questionDTO.getD());
+		question.setResult(questionDTO.getResult());
+		question.setExtra(questionDTO.getExtra());
+
+		return question;
+	}
+
 }
