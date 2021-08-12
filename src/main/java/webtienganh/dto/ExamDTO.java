@@ -7,31 +7,32 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import webtienganh.validator.TopicIdExists;
+import lombok.Setter;
+import webtienganh.validator.Id;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseSummaryDTO {
+public class ExamDTO {
 
-	private int id;
+	private Integer id;
 	@NotBlank
 	@Size(max = 200)
 	private String name;
 	@JsonProperty(access = Access.READ_ONLY)
 	private String slug;
 	@JsonProperty(access = Access.READ_ONLY)
-	private String image;
-	@NotBlank
-	@Size(max = 500)
-	private String description;
+	private String part1Audio;
 	@JsonProperty(access = Access.READ_ONLY)
-	private int wordNumber;
+	private String part2Audio;
 	@JsonProperty(access = Access.READ_ONLY)
-	private int personNumber;
-	@TopicIdExists
-	private Integer topicId;
-
+	private String part3Audio;
+	@JsonProperty(access = Access.READ_ONLY)
+	private String part4Audio;
+	@Id
+	private Integer bookId;
+	private String bookName;
 }

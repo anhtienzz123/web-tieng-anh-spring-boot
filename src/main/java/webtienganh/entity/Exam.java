@@ -2,6 +2,7 @@ package webtienganh.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -34,7 +35,7 @@ public class Exam {
 	private String part3Audio;
 	private String part4Audio;
 
-	@OneToMany(mappedBy = "exam")
+	@OneToMany(mappedBy = "exam", cascade = CascadeType.REMOVE)
 	private List<Question> questions;
 
 	@ManyToOne

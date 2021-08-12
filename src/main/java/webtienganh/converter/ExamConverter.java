@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import webtienganh.dto.ExamDTO;
 import webtienganh.dto.ExamQuestionDTO;
 import webtienganh.dto.ExamResultDTO;
 import webtienganh.dto.Part1_2QuestionDTO;
@@ -16,12 +17,15 @@ import webtienganh.dto.Part3_4_6_7ResultGroupDTO;
 import webtienganh.dto.QuestionResultDTO;
 import webtienganh.dto.QuestionSummaryDTO;
 import webtienganh.entity.Audio;
+import webtienganh.entity.Book;
 import webtienganh.entity.Exam;
 import webtienganh.entity.Paragraph;
 import webtienganh.entity.Question;
 import webtienganh.entity.QuestionParagraph;
+import webtienganh.repository.ExamRepository;
 import webtienganh.repository.ParagraphRepository;
 import webtienganh.repository.QuestionRepository;
+import webtienganh.utils.CommonFuc;
 import webtienganh.utils.ToeicPoint;
 
 @Component
@@ -33,6 +37,8 @@ public class ExamConverter {
 	private ParagraphRepository paragraphRepository;
 	@Autowired
 	private QuestionConverter questionConverter;
+	@Autowired
+	private ExamRepository examRepository;
 
 	public ExamQuestionDTO toExamQuestionDTO(Exam exam) {
 
@@ -252,11 +258,12 @@ public class ExamConverter {
 
 		return result;
 	}
-	
+
 	public Part3_4_6_7GroupDTO toPart3_4_6_7GroupDTO(Paragraph paragraph) {
 
 		Part3_4_6_7GroupDTO result = new Part3_4_6_7GroupDTO();
 
+		result.setId(paragraph.getId());
 		result.setImage(paragraph.getImage());
 		result.setParagraph(paragraph.getContent());
 		result.setTranscript(paragraph.getTranscript());
@@ -290,6 +297,36 @@ public class ExamConverter {
 		return result;
 	}
 
-	
-	
+	public ExamDTO toExamDTO(Exam exam) {
+
+		var examDTO = new ExamDTO();
+
+		examDTO.setId(exam.getId());
+		examDTO.setName(exam.getName());
+		examDTO.setSlug(exam.getSlug());
+		examDTO.setPart1Audio(exam.getPart1Audio());
+		examDTO.setPart2Audio(exam.getPart2Audio());
+		examDTO.setPart3Audio(exam.getPart3Audio());
+		examDTO.setPart4Audio(exam.getPart4Audio());
+
+		Book book = exam.getBook();
+		examDTO.setBookId(book.getId());
+		examDTO.setBookName(book.getName());
+
+		return examDTO;
+	}
+
+	public Exam toExam(ExamDTO examDTO) {
+
+		var exam = examRepository.findById(examDTO.getId()).orElse(new Exam(0));
+
+		String name = examDTO.getName();
+		exam.setName(name);
+		exam.setSlug(CommonFuc.toSlug(name));
+
+		exam.setBook(new Book(examDTO.getBookId(), examDTO.getBookName()));
+
+		return exam;
+	}
+
 }

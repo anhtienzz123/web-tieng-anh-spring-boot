@@ -167,3 +167,38 @@
   - body: {start: long, end: long, content: String}.
 - `[DELETE] /:videoId`: xóa sub cuối cùng của video.
 
+### Exam `/admin/exams`
+- `[GET]`: lấy danh sách exam.
+  - params:
+  	- name: String (mặc định là "").
+  	- bookName: String (mặc định là "").
+  	- page: int (mặc định là 0).
+  	- size: int (mặc định là 10).
+- `[POST]`: thêm exam.
+  - body: {name: Integer, bookId: Integer, bookName: String}.
+- `[PUT] /{id}`: update exam.
+  - body: {name: Integer, bookId: Integer, bookName: String}.
+- `[DELETE] /{id}`: xóa exam.
+- `[PUT] /{id}/audio`: upload audio exam.
+  - body: {part1Audio: File, part2Audio: File, part3Audio: File, part4Audio: File }
+  
+### Paragraph `/admin/exams/paragraphs`.
+- `[PUT] /{id}`: update .
+  - body: {content: String, transcript: String}.
+- `[PUT] /{id}/image`: update image .
+  - body: {image: File}.
+- `[PUT] /{id}/audio`: update audio cho part 3, 4 .
+  - body: {audio: File}.
+  
+### Question `/admin/exams/questions`.
+- `[GET]`: get list.
+  - params:
+  	- examId: int.
+  	- type: int.
+- `[PUT] /{id}`: update.
+  - body: {content: String, a: String, b: String, c: String, d: String, result: String, extra: String}.
+- `[PUT] /{id}/image`: update image cho part 1 .
+  - body: {image: File}.
+- `[PUT] /{id}/audio`: update audio cho part 1, 2.
+  - body: {audio: File}.
+  

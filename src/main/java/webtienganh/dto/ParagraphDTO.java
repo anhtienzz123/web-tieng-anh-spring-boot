@@ -1,7 +1,6 @@
 package webtienganh.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -15,24 +14,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionSummaryDTO {
+public class ParagraphDTO {
 
 	private int id;
 	@JsonProperty(access = Access.READ_ONLY)
-	private int stt;
+	private String image;
 	@NotBlank
-	@Size(max = 255)
 	private String content;
 	@NotBlank
-	@Size(max = 255)
-	private String a;
-	@NotBlank
-	@Size(max = 255)
-	private String b;
-	@NotBlank
-	@Size(max = 255)
-	private String c;
-	@NotBlank
-	@Size(max = 255)
-	private String d;
+	private String transcript;
 }

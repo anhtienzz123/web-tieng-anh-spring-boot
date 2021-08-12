@@ -1,5 +1,6 @@
 package webtienganh.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -34,8 +35,8 @@ public class Question {
 	private String result;
 	private String extra;
 
-	@OneToOne(mappedBy = "question")
-	private Audio Audio;
+	@OneToOne(mappedBy = "question", cascade = CascadeType.REMOVE)
+	private Audio audio;
 
 	@ManyToOne
 	@JoinColumn(name = "exam_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_question_exam"))
@@ -48,6 +49,5 @@ public class Question {
 		super();
 		this.id = id;
 	}
-
 	
 }

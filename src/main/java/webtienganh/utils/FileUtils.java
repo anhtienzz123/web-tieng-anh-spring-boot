@@ -15,13 +15,16 @@ public class FileUtils {
 		fos.close();
 		return convFile;
 	}
-	
+
 	public static String getPuclidId(String image) {
-		
-		String[] arrTempt = image.split("/");
-		String fileName = arrTempt[arrTempt.length - 1];
-		
-		return fileName.split("\\.")[0];
+		try {
+			String[] arrTempt = image.split("/");
+			String fileName = arrTempt[arrTempt.length - 1];
+
+			return fileName.split("\\.")[0];
+		} catch (Exception e) {
+			return "";
+		}
 	}
-	
+
 }
