@@ -29,7 +29,6 @@ public class QuestionDTO extends QuestionSummaryDTO {
 	private String extra;
 	@JsonProperty(access = Access.READ_ONLY)
 	private String audio;
-	@JsonProperty(access = Access.WRITE_ONLY)
 	
 	public String getResult() {
 
