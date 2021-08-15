@@ -33,10 +33,11 @@ public class User {
 	private String username;
 	private String password;
 	private String token;
+	private String image;
 
 	@Enumerated(EnumType.STRING)
 	private Provider provider;
-	private String providerId;
+	private String email;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private List<UserRole> roles = new ArrayList<>();

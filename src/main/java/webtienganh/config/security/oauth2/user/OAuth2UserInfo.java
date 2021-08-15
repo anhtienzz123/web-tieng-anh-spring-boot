@@ -19,9 +19,12 @@ public abstract class OAuth2UserInfo {
 
 	public abstract String getEmail();
 
+	public abstract String getImage();
+
 	@Override
 	public String toString() {
 
-		return String.format("Id: %s \n Name: %s \n Email: %s", this.getId(), this.getName(), this.getEmail());
+		return String.format("Id: %s \n Name: %s \n Email: %s \n Image: ", this.getId(), this.getName(),
+				this.getEmail(), this.getImage());
 	}
 }

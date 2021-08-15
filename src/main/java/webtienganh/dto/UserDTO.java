@@ -13,4 +13,6 @@ public class UserDTO {
 
 	private Integer id;
 	private String name;
+	private String username;
+	private String image;
 }

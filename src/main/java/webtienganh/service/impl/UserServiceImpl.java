@@ -27,23 +27,5 @@ public class UserServiceImpl implements UserService {
 		
 		userRepository.save(user);
 	}
-//	
-//	@Override
-//	public void processOAuthPostLogin(CustomOAuth2UserService customOAuth2User) {
-//		
-//		String name = customOAuth2User.get;
-//		String email = customOAuth2User.getEmail();
-//		Optional<User> userOptional = userRepository.findByUsername(name);
-//		
-//		if (!userOptional.isPresent()) {
-//			
-//			User newUser = new User();
-//			newUser.setName(name);
-//			newUser.setUsername(email);
-//			
-//			
-//			userRepository.save(newUser);
-//		}
-//		
-//	}
+
 }
