@@ -3,6 +3,7 @@ package webtienganh.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,7 +38,7 @@ public class User {
 	private Provider provider;
 	private String providerId;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private List<UserRole> roles = new ArrayList<>();
 
 	public User(String name, String username, String password, String token, List<UserRole> roles) {

@@ -83,15 +83,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/user/**").authenticated()
 			.anyRequest().permitAll().and()
 		.oauth2Login()
+		.loginPage("/login")
 			.authorizationEndpoint()
-                .baseUri("/oauth2/authorize")
-                .authorizationRequestRepository(cookieAuthorizationRequestRepository())
-            .and()
-			.userInfoEndpoint()
-				.userService(customOAuth2UserService)
+				.baseUri("/oauth2/authorization")
+				.authorizationRequestRepository(cookieAuthorizationRequestRepository())
 			.and()
-			.successHandler(oAuth2AuthenticationSuccessHandler)
-			.failureHandler(oAuth2AuthenticationFailureHandler);
+				.userInfoEndpoint().userService(customOAuth2UserService).and()
+				.successHandler(oAuth2AuthenticationSuccessHandler).failureHandler(oAuth2AuthenticationFailureHandler);
 
 		// Thêm một lớp Filter kiểm tra jwt
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
