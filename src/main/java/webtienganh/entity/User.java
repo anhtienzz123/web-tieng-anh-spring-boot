@@ -3,7 +3,10 @@ package webtienganh.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,20 +24,25 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String name;
 	private String username;
 	private String password;
 	private String token;
-	
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	private String image;
+
+	@Enumerated(EnumType.STRING)
+	private Provider provider;
+	private String email;
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private List<UserRole> roles = new ArrayList<>();
 
-	public User(String name,String username, String password, String token, List<UserRole> roles) {
+	public User(String name, String username, String password, String token, List<UserRole> roles) {
 		super();
 		this.name = name;
 		this.username = username;
@@ -42,8 +50,5 @@ public class User {
 		this.token = token;
 		this.roles = roles;
 	}
-	
-	
-	
-	
+
 }
