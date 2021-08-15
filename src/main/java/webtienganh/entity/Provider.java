@@ -1,5 +1,7 @@
 package webtienganh.entity;
 
 public enum Provider {
-	LOCAL, GOOGLE, FACEBOOK, GITHUB
+    local,
+    facebook,
+    google,
 }

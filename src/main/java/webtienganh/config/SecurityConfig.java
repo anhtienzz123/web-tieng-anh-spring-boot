@@ -1,32 +1,30 @@
 package webtienganh.config;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import webtienganh.service.UserService;
-import webtienganh.service.impl.CustomOAuth2User;
-import webtienganh.service.impl.CustomOAuth2UserService;
-import webtienganh.utils.JwtAuthenticationFilter;
+import webtienganh.config.security.JwtAuthenticationFilter;
+import webtienganh.config.security.oauth2.CustomOAuth2UserService;
+import webtienganh.config.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import webtienganh.config.security.oauth2.OAuth2AuthenticationFailureHandler;
+import webtienganh.config.security.oauth2.OAuth2AuthenticationSuccessHandler;
 
+@Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -34,13 +32,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private CustomOAuth2UserService customOAuth2UserService;
-	
+
 	@Autowired
-	private UserService userService;
+	private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+
+	@Autowired
+	private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
 	@Bean
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
 		return new JwtAuthenticationFilter();
+	}
+
+	@Bean
+	public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
+		return new HttpCookieOAuth2AuthorizationRequestRepository();
 	}
 
 	@Bean(BeanIds.AUTHENTICATION_MANAGER)
@@ -63,26 +69,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.cors().and().csrf().disable().authorizeRequests().antMatchers("/admin/exams", "/admin/exams/**")
-				.hasAnyRole("EXAM", "ADMIN").antMatchers("/admin/videos", "/admin/videos/**")
-				.hasAnyRole("VIDEO", "ADMIN").antMatchers("/admin/blogs", "/admin/blogs/**").hasAnyRole("BLOG", "ADMIN")
-				.antMatchers("/admin/courses", "/admin/courses/**").hasAnyRole("COURSE", "ADMIN")
-				.antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/user/**").authenticated().anyRequest()
-				.permitAll().and().oauth2Login().loginPage("/login").userInfoEndpoint()
-				.userService(customOAuth2UserService).and().successHandler(new AuthenticationSuccessHandler() {
-
-					@Override
-					public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-							Authentication authentication) throws IOException, ServletException {
-						System.out.println("AuthenticationSuccessHandler invoked");
-						System.out.println("Authentication name: " + authentication.getName());
-						CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
-
-						userService.processOAuthPostLogin(oauthUser.getEmail());
-
-						response.sendRedirect("/list");
-					}
-				});
+		http.cors().and()
+		.sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+		.csrf().disable()
+		.authorizeRequests()
+			.antMatchers("/admin/exams", "/admin/exams/**").hasAnyRole("EXAM", "ADMIN")
+			.antMatchers("/admin/videos", "/admin/videos/**").hasAnyRole("VIDEO", "ADMIN")
+			.antMatchers("/admin/blogs", "/admin/blogs/**").hasAnyRole("BLOG", "ADMIN")
+			.antMatchers("/admin/courses", "/admin/courses/**").hasAnyRole("COURSE", "ADMIN")
+			.antMatchers("/admin/**").hasRole("ADMIN")
+			.antMatchers("/user/**").authenticated()
+			.anyRequest().permitAll().and()
+		.oauth2Login()
+			.authorizationEndpoint()
+                .baseUri("/oauth2/authorize")
+                .authorizationRequestRepository(cookieAuthorizationRequestRepository())
+            .and()
+			.userInfoEndpoint()
+				.userService(customOAuth2UserService)
+			.and()
+			.successHandler(oAuth2AuthenticationSuccessHandler)
+			.failureHandler(oAuth2AuthenticationFailureHandler);
 
 		// Thêm một lớp Filter kiểm tra jwt
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

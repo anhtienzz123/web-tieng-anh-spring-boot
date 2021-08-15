@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import webtienganh.config.security.JwtTokenProvider;
 import webtienganh.dto.LoginRequestDTO;
 import webtienganh.dto.LoginResponseDTO;
 import webtienganh.entity.User;
 import webtienganh.repository.UserRepository;
 import webtienganh.service.UserService;
-import webtienganh.utils.JwtTokenProvider;
 
 @RestController
 @CrossOrigin
