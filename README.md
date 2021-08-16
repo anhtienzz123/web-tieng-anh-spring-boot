@@ -175,7 +175,8 @@
   	- page: int (mặc định là 0).
   	- size: int (mặc định là 10).
 - `[POST]`: thêm exam.
-  - body: {name: Integer, bookId: Integer, bookName: String}.
+  - params: stts[int]
+  - body: {name: String, bookId: Integer, bookName: String}.
 - `[PUT] /{id}`: update exam.
   - body: {name: Integer, bookId: Integer, bookName: String}.
 - `[DELETE] /{id}`: xóa exam.

@@ -70,9 +70,11 @@ public class ExamAdminController {
 	}
 
 	@PutMapping(value = "/{id}/audio")
-	public void updateAudio(@PathVariable("id") int id, @RequestParam("part1Audio") MultipartFile part1Audio,
-			@RequestParam("part2Audio") MultipartFile part2Audio, @RequestParam("part3Audio") MultipartFile part3Audio,
-			@RequestParam("part4Audio") MultipartFile part4Audio
+	public void updateAudio(@PathVariable("id") int id,
+			@RequestParam(name = "part1Audio", required = false) MultipartFile part1Audio,
+			@RequestParam(name = "part2Audio", required = false) MultipartFile part2Audio,
+			@RequestParam(name = "part3Audio", required = false) MultipartFile part3Audio,
+			@RequestParam(name = "part4Audio", required = false) MultipartFile part4Audio
 
 	) {
 
