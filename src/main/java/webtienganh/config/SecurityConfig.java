@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -70,24 +69,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.cors().and()
-		.sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
+//		.sessionManagement()
+//        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//        .and()
 		.csrf().disable()
 		.authorizeRequests()
 			.antMatchers("/admin/exams", "/admin/exams/**").hasAnyRole("EXAM", "ADMIN")
 			.antMatchers("/admin/videos", "/admin/videos/**").hasAnyRole("VIDEO", "ADMIN")
 			.antMatchers("/admin/blogs", "/admin/blogs/**").hasAnyRole("BLOG", "ADMIN")
 			.antMatchers("/admin/courses", "/admin/courses/**").hasAnyRole("COURSE", "ADMIN")
-			.antMatchers("/admin/**").hasRole("ADMIN")
-			.antMatchers("/user/**").authenticated()
-			.anyRequest().permitAll().and()
-		.oauth2Login()
-		.loginPage("/login")
-			.authorizationEndpoint()
+			.antMatchers("/admin/**", "/admin/user/**", "/admin/user" ).hasRole("ADMIN")
+			.antMatchers("/user/**").hasRole("USER")
+			.anyRequest().permitAll()
+			.and()
+				.oauth2Login()
+				//.loginPage("/login-oauth")
+				.authorizationEndpoint()
 				.baseUri("/oauth2/authorization")
 				.authorizationRequestRepository(cookieAuthorizationRequestRepository())
-			.and()
+				.and()
 				.userInfoEndpoint().userService(customOAuth2UserService).and()
 				.successHandler(oAuth2AuthenticationSuccessHandler).failureHandler(oAuth2AuthenticationFailureHandler);
 
