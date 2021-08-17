@@ -2,6 +2,7 @@ package webtienganh.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import webtienganh.utils.RoleConstant;
 
 @Getter
 @Setter
@@ -39,7 +41,7 @@ public class User {
 	private Provider provider;
 	private String email;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserRole> roles = new ArrayList<>();
 
 	public User(String name, String username, String password, String token, List<UserRole> roles) {
@@ -49,6 +51,21 @@ public class User {
 		this.password = password;
 		this.token = token;
 		this.roles = roles;
+	}
+
+	public List<String> getRolesString() {
+		return this.roles.stream().map(userRole -> userRole.getRole().getName()).collect(Collectors.toList());
+	}
+
+	public boolean isAdmin() {
+
+		for (UserRole userRole : roles) {
+			
+			if (userRole.getRole().getName().equals(RoleConstant.ROLE_ADMIN))
+				return true;
+		}
+
+		return false;
 	}
 
 }

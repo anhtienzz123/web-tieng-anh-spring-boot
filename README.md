@@ -202,4 +202,18 @@
   - body: {image: File}.
 - `[PUT] /{id}/audio`: update audio cho part 1, 2.
   - body: {audio: File}.
+
+### User `/admin/users`.
+- `[GET]`: get list.
+  - params:
+  	- username: string ("").
+  	- page: int (0).
+  	- size: int (10).
+- `[POST]`: thêm.
+  - body: {name: String, username: String, password: String}.
+- `[DELETE] /:id`: xóa
+- `[PUT] /:id/admin-role`: update quyền Admin.
+- `[PUT] /:id/update-roles`: update danh sách quyền.
+  - body:  List<String> roles.
+
   
