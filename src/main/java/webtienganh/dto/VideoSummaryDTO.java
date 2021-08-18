@@ -24,9 +24,9 @@ public class VideoSummaryDTO {
 	@NotBlank
 	@Size(max = 200)
 	private String name;
-	@JsonProperty(access = Access.READ_ONLY)
+	//@JsonProperty(access = Access.READ_ONLY)
 	private String slug;
-	@JsonProperty(access = Access.READ_ONLY)
+	//@JsonProperty(access = Access.READ_ONLY)
 	private String image;
 	@Min(value = 0)
 	private Long duration;

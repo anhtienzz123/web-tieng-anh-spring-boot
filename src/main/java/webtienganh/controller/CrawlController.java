@@ -258,7 +258,7 @@ public class CrawlController {
 			videoWord.setName(videoWordDTO.getName());
 			videoWord.setOrigin(videoWordDTO.getOrigin());
 			videoWord.setSound(videoWordDTO.getSound());
-			videoWord.setFrequency(videoWordDTO.getFrequency());
+			videoWord.setFrequency(videoWordDTO.getFrequency() == 0 ? 1 : videoWordDTO.getFrequency());
 			videoWord.setVideo(new Video(id));
 
 			videoWordRepository.save(videoWord);

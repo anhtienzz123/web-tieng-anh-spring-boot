@@ -20,14 +20,14 @@ import webtienganh.validator.Id;
 @AllArgsConstructor
 public class VideoDTO extends VideoSummaryDTO {
 
-	@JsonProperty(access = Access.READ_ONLY)
+	//@JsonProperty(access = Access.READ_ONLY)
 	private String url;
 	@NotBlank
 	@Size(max = 500 )
 	private String description;
-	@JsonProperty(access = Access.READ_ONLY)
+	//@JsonProperty(access = Access.READ_ONLY)
 	private List<SubtitleDTO> subtitles;
-	@JsonProperty(access = Access.READ_ONLY)
+	//@JsonProperty(access = Access.READ_ONLY)
 	private List<VideoWordDTO> videoWords;
 	@Id
 	private Integer categoryId;

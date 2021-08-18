@@ -5,9 +5,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,11 +24,11 @@ public class VideoWordDTO {
 	@NotBlank
 	@Size(max = 100)
 	private String origin;
-	@JsonProperty(access = Access.READ_ONLY)
+	//@JsonProperty(access = Access.READ_ONLY)
 	private String sound;
 	@NotNull
 	@Min(value = 1)
-	private Integer frequency; 
+	private int frequency; 
 	
 	@Id
 	private Integer videoId;
