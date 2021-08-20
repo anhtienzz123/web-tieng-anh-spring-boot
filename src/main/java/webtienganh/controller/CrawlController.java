@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,7 @@ import webtienganh.entity.Exam;
 import webtienganh.entity.Paragraph;
 import webtienganh.entity.Question;
 import webtienganh.entity.QuestionParagraph;
+import webtienganh.entity.Subtitle;
 import webtienganh.entity.Topic;
 import webtienganh.entity.Video;
 import webtienganh.entity.VideoWord;
@@ -41,6 +44,7 @@ import webtienganh.repository.ExamRepository;
 import webtienganh.repository.ParagraphRepository;
 import webtienganh.repository.QuestionParagraphRepository;
 import webtienganh.repository.QuestionRepository;
+import webtienganh.repository.SubtitleRepository;
 import webtienganh.repository.VideoRepository;
 import webtienganh.repository.VideoWordRepository;
 import webtienganh.repository.WordRepository;
@@ -280,5 +284,32 @@ public class CrawlController {
 		}
 
 	}
+
+	@Autowired
+	private SubtitleRepository subtitleRepository;
+
+//	@GetMapping("/them-stt/{categoryId}")
+//	public void themSTT(@PathVariable("categoryId") int categoryId) {
+//
+//		List<Video> videos = videoRepository.findAllByCategoryId(categoryId);
+//
+//		for (Video video : videos) {
+//
+//			List<Subtitle> subtitles = subtitleRepository.findAllByVideoIdOrderByStartAsc(video.getId());
+//
+//			System.out.println("size: "+subtitles.size() );
+//			for (int i = 0; i < subtitles.size(); i++) {
+//
+//				Subtitle subtitleTempt = subtitles.get(i);
+//				subtitleTempt.setStt(i);
+//
+//				subtitleRepository.save(subtitleTempt);
+//
+//			}
+//		}
+//		
+//		System.out.println("Thanh cong");
+//
+//	}
 
 }
