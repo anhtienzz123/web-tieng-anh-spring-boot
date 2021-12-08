@@ -76,8 +76,4 @@ public class CommonFuc {
 		return String.valueOf(number);
 	}
 
-	public static void main(String[] args) {
-
-		System.out.println("time: " + getDurationString(3755));
-	}
 }
